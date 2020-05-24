@@ -2,7 +2,6 @@
 #'
 #' Joint decomposition of several linked matrices with Principal Component Analysis (PCA)
 #'
-#'
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
@@ -10,7 +9,7 @@
 #' @param max_err The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.001
 #'
 #' @importFrom stats runif
-#' @return A list contains the component and the score of each dataset on every component
+#' @return A list contains the component and the score of each dataset on every component after jointPCA algorithm
 #'
 #' @keywords joint, PCA
 #'

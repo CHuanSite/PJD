@@ -6,8 +6,8 @@ Date: 2020-05-24
 Author: Huan Chen <hchen130@jhu.edu>
 Maintainer: Huan Chen <hchen130@jhu.edu>
 Imports: tidyverse,
-    RSpectra,
-Description: This is a R Package for Visualizing Biologically StructuredGene Expression Matrix Environment Based on Low Rank Models.
+    RSpectra
+Description: This is a R Package for Visualizing Biologically StructuredGene Expression Matrix Environment Based on Low Rank Models, pairwisely and jointly.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
