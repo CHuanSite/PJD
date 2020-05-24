@@ -6,6 +6,8 @@
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
 #'
+#' @importFrom RSpectra svds
+#'
 #' @return A list contains the component and the score of each dataset on every component after pairwisePCA algorithm
 #'
 #' @keywords pairwise, PCA
@@ -41,7 +43,7 @@ pairwisePCA <- function(dataset, group, comp_num){
         temp_sample_n = c()
         for(j in group[[i]]){
             temp_dat = cbind(temp_dat, dataset[[j]])
-            temp_sample_n = c(temp_sample_n, ncol(datasets[[j]]))
+            temp_sample_n = c(temp_sample_n, ncol(dataset[[j]]))
         }
         svd_temp = svds(temp_dat, comp_num[i])
         list_component[[i]] = svd_temp$u

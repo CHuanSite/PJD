@@ -9,6 +9,7 @@
 #' @param max_err The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.001
 #'
 #' @importFrom stats runif
+#'
 #' @return A list contains the component and the score of each dataset on every component after jointPCA algorithm
 #'
 #' @keywords joint, PCA

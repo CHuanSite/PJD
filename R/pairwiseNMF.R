@@ -6,6 +6,8 @@
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
 #'
+#' @importFrom NMF nmf
+#'
 #' @return A list contains the component and the score of each dataset on every component after pairwiseNMF algorithm
 #'
 #' @keywords pairwise, NMF
@@ -41,12 +43,12 @@ pairwiseNMF <- function(dataset, group, comp_num){
         temp_sample_n = c()
         for(j in group[[i]]){
             temp_dat = cbind(temp_dat, dataset[[j]])
-            temp_sample_n = c(temp_sample_n, ncol(datasets[[j]]))
+            temp_sample_n = c(temp_sample_n, ncol(dataset[[j]]))
         }
         nmf_temp = nmf(temp_dat, comp_num[i], 'lee')
         list_component[[i]] = nmf_temp@fit@W
         for(j in 1 : length(group[[i]])){
-            list_score[[group[[i]][j]]][[i]] = nmf_temp@fit@H[, ifelse(j == 1, 1, cumsum(temp_sample_n[j - 1])) : cumsum(temp_sample_n[j])]
+            list_score[[group[[i]][j]]][[i]] = nmf_temp@fit@H[, ifelse(j == 1, 1, cumsum(temp_sample_n[j - 1]) + 1) : cumsum(temp_sample_n[j])]
         }
     }
 

@@ -18,7 +18,7 @@ jointPCA(dataset, group, comp_num, max_ite = 100, max_err = 1e-04)
 \item{max_err}{The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.001}
 }
 \value{
-A list contains the component and the score of each dataset on every component
+A list contains the component and the score of each dataset on every component after jointPCA algorithm
 }
 \description{
 Joint decomposition of several linked matrices with Principal Component Analysis (PCA)

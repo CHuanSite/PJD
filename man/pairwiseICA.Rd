@@ -4,7 +4,17 @@
 \alias{pairwiseICA}
 \title{Pairwise decomposition with Independent Component Analysis}
 \usage{
-pairwiseICA()
+pairwiseICA(dataset, group, comp_num)
+}
+\arguments{
+\item{dataset}{A list of dataset to be analyzed}
+
+\item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
+
+\item{comp_num}{A vector indicates the dimension of each compoent}
+}
+\value{
+A list contains the component and the score of each dataset on every component after pairwisePCA algorithm
 }
 \description{
 Pairwise decomposition of several linked matrices with Independent Component Analysis (ICA)

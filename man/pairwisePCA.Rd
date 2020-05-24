@@ -4,7 +4,17 @@
 \alias{pairwisePCA}
 \title{Pairwise Decomposition with Principal Component Analysis}
 \usage{
-pairwisePCA()
+pairwisePCA(dataset, group, comp_num)
+}
+\arguments{
+\item{dataset}{A list of dataset to be analyzed}
+
+\item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
+
+\item{comp_num}{A vector indicates the dimension of each compoent}
+}
+\value{
+A list contains the component and the score of each dataset on every component after pairwisePCA algorithm
 }
 \description{
 Pairwise decomposition of several matrices with Principal Component Analysis (PCA)
