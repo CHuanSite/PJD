@@ -15,7 +15,7 @@ jointNMF(dataset, group, comp_num, max_ite = 100, max_err = 1e-04)
 
 \item{max_ite}{The maximum number of iterations for the jointNMF algorithms to run, default value is set to 100}
 
-\item{max_err}{The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.001}
+\item{max_err}{The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.0001}
 }
 \value{
 A list contains the component and the score of each dataset on every component after jointNMF algorithm
@@ -23,6 +23,16 @@ A list contains the component and the score of each dataset on every component a
 \description{
 Joint decomposition of several linked matrices with Nonnegative Matrix Factorization (NMF)
 It is based on the MSE loss, proposed by Lee, Daniel D., and H. Sebastian Seung. "Learning the parts of objects by non-negative matrix factorization." Nature 401.6755 (1999): 788-791.
+}
+\examples{
+dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
+comp_num = c(2,2,2,2,2,2,2,2,2)
+res_jointNMF = jointNMF(dataset, group, comp_num)
+
 }
 \keyword{NMF}
 \keyword{joint,}
