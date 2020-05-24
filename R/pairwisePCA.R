@@ -2,6 +2,14 @@
 #'
 #' Pairwise decomposition of several matrices with Principal Component Analysis (PCA)
 #'
+#' @param dataset A list of dataset to be analyzed
+#' @param group A list of grouping of the datasets, indicating the relationship between datasets
+#' @param comp_num A vector indicates the dimension of each compoent
+#' @param max_ite The maximum number of iterations for the pairwisePCA algorithms to run, default value is set to 100
+#' @param max_err The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.001
+#'
+#' @return A list contains the component and the score of each dataset on every component after pairwisePCA algorithm
+#'
 #' @keywords pairwise, PCA
 #'
 #' @export
@@ -15,7 +23,6 @@ pairwisePCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.000
 
     N_dataset = unlist(lapply(dataset, ncol))
 
-
     ## Output the component and scores
     list_component = list()
     list_score = list()
@@ -23,14 +30,27 @@ pairwisePCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.000
         list_score[[j]] = list()
     }
 
-    for(i in 1 : M){
+    for(i in 1 : K){
         list_component[[i]] = matrix(0, nrow = p, ncol = comp_num[i])
         for(j in 1 : N){
             list_score[[j]][[i]] = matrix(0, nrow = comp_num[i], ncol = N_dataset[j])
         }
     }
 
+    ## Extract pairwise PCA from the datasets
+    for(i in 1 : K){
+        temp_dat = c()
+        temp_sample_n = c()
+        for(j in group[[i]]){
+            temp_dat = cbind(temp_dat, dataset[[j]])
+            temp_sample_n = c(temp_sample_n, ncol(datasets[[j]]))
+        }
+        svd_temp = svds(temp_dat, comp_num[i])
+        list_component[[i]] = svd_temp$u
+        for(j in 1 : length(group[[i]])){
+            list_score[[group[[i]][j]]][[i]] = diag(svd_temp$d) %*% t(svd_temp$v)[, ifelse(j == 1, 1, cumsum(temp_sample_n[j - 1])) : cumsum(temp_sample_n[j])]
+        }
+    }
 
-
-
+    return(list(linked_component_list = list_component, score_list = list_score))
 }

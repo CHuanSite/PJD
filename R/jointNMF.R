@@ -72,7 +72,7 @@ jointNMF <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
         list_score[[j]] = list()
     }
 
-    for(i in 1 : M){
+    for(i in 1 : K){
         list_component[[i]] = W[, ifelse(i == 1, 1, cumsum(comp_num)[i - 1] + 1) : cumsum(comp_num)[i]]
         for(j in 1 : N){
             list_score[[j]][[i]] = H[ifelse(i == 1, 1, cumsum(comp_num)[i - 1] + 1) : cumsum(comp_num)[i], ifelse(j == 1, 1, cumsum(N_dataset)[j - 1] + 1) : cumsum(N_dataset)[j]]
