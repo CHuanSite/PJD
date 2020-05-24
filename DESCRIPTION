@@ -3,7 +3,7 @@ Type: Package
 Title: Pairwise and Joint Decomposiiton(PJD)
 Version: 0.1.0
 Date: 2020-05-24
-Author: Huan Chen <hchen130@jhu.edu>
+Author: Huan Chen
 Maintainer: Huan Chen <hchen130@jhu.edu>
 Imports: tidyverse,
     RSpectra,
