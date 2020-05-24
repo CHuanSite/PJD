@@ -5,8 +5,6 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
-#' @param max_ite The maximum number of iterations for the pairwisePCA algorithms to run, default value is set to 100
-#' @param max_err The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.001
 #'
 #' @return A list contains the component and the score of each dataset on every component after pairwisePCA algorithm
 #'
@@ -14,7 +12,7 @@
 #'
 #' @export
 
-pairwisePCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
+pairwisePCA <- function(dataset, group, comp_num){
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)
