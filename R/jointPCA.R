@@ -14,6 +14,15 @@
 #'
 #' @keywords joint, PCA
 #'
+#' @examples
+#' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+#' group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
+#' comp_num = c(2,2,2,2,2,2,2,2,2)
+#' res_jointICA = jointICA(dataset, group, comp_num)
+#'
 #' @export
 
 jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
@@ -22,6 +31,7 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     K = length(group)
     M = sum(comp_num)
     p = nrow(dataset[[1]])
+    N_dataset = unlist(lapply(dataset, ncol))
 
     ## Combine the dataset into a huge one
     combine_data <- c()
@@ -37,9 +47,9 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     for(i in 1 : N){
         for(j in 1 : K){
             if(i %in% group[[j]]){
-                score_list[[i]][[j]] = matrix(runif(comp_num[j] * ncol(dataset[[i]])), nrow = comp_num[j])
+                score_list[[i]][[j]] = matrix(runif(comp_num[j] * N_dataset[i]), nrow = comp_num[j])
             }else{
-                score_list[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = ncol(dataset[[i]]))
+                score_list[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = N_dataset[i])
             }
         }
     }
@@ -73,7 +83,7 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
                 if(i %in% group[[j]]){
                     score_list[[i]][[j]] = t(linked_component_list[[j]]) %*% dataset[[i]]
                 }else{
-                    score_list[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = ncol(dataset[[i]]))
+                    score_list[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = N_dataset[i])
                 }
             }
         }
@@ -82,8 +92,8 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
             return(list(linked_component_list = linked_component_list, score_list = score_list))
         }
         loss = c(loss, loss_current)
-        print(t)
-        print(loss_current)
+        # print(t)
+        # print(loss_current)
     }
 
     return(list(linked_component_list = linked_component_list, score_list = score_list))

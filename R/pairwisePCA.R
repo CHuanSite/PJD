@@ -12,6 +12,15 @@
 #'
 #' @keywords pairwise, PCA
 #'
+#' @examples
+#' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+#' group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
+#' comp_num = c(2,2,2,2,2,2,2,2,2)
+#' res_pairwisePCA = pairwisePCA(dataset, group, comp_num)
+#'
 #' @export
 
 pairwisePCA <- function(dataset, group, comp_num){
@@ -20,7 +29,6 @@ pairwisePCA <- function(dataset, group, comp_num){
     K = length(group)
     M = sum(comp_num)
     p = nrow(dataset[[1]])
-
     N_dataset = unlist(lapply(dataset, ncol))
 
     ## Output the component and scores
@@ -29,7 +37,6 @@ pairwisePCA <- function(dataset, group, comp_num){
     for(j in 1 : N){
         list_score[[j]] = list()
     }
-
     for(i in 1 : K){
         list_component[[i]] = matrix(0, nrow = p, ncol = comp_num[i])
         for(j in 1 : N){

@@ -7,11 +7,20 @@
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
 #' @param max_ite The maximum number of iterations for the jointNMF algorithms to run, default value is set to 100
-#' @param max_err The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.001
+#' @param max_err The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.0001
 #'
 #' @return A list contains the component and the score of each dataset on every component after jointNMF algorithm
 #'
 #' @keywords joint, NMF
+#'
+#' @examples
+#' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+#' group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
+#' comp_num = c(2,2,2,2,2,2,2,2,2)
+#' res_jointNMF = jointNMF(dataset, group, comp_num)
 #'
 #' @export
 
@@ -21,8 +30,9 @@ jointNMF <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     K = length(group)
     M = sum(comp_num)
     p = nrow(dataset[[1]])
-
     N_dataset = unlist(lapply(dataset, ncol))
+
+    ## Initialize the W and H for Nonnegative Matrix Factorization
     max_element = -Inf
     min_element = Inf
     for(i in 1 : N){
@@ -58,11 +68,11 @@ jointNMF <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
         W = W * (X %*% t(H)) / (W %*% H %*% t(H))
         error_out = c(error_out, sum((X - W %*% H)^2))
         ## Break when the error difference is small
-        if(abs(error_out[length(error_out)] - error_out[length(error_out) - 1]) <= max_err){
+        if(length(error_out) >= 2 && abs(error_out[length(error_out)] - error_out[length(error_out) - 1]) <= max_err){
             break
         }
-        print(ite)
-        print(abs(error_out[length(error_out)] - error_out[length(error_out) - 1]))
+        # print(ite)
+        # print(abs(error_out[length(error_out)] - error_out[length(error_out) - 1]))
     }
 
     ## Output component and scores
@@ -78,6 +88,5 @@ jointNMF <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
             list_score[[j]][[i]] = H[ifelse(i == 1, 1, cumsum(comp_num)[i - 1] + 1) : cumsum(comp_num)[i], ifelse(j == 1, 1, cumsum(N_dataset)[j - 1] + 1) : cumsum(N_dataset)[j]]
         }
     }
-
     return(list(linked_component_list = list_component, score_list = list_score))
 }
