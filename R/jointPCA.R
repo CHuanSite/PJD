@@ -88,7 +88,7 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
             }
         }
         loss_current = sum((combine_data - linked_component %*% matrix_score)^2)
-        if(abs(loss[length(loss)] - loss_current) / loss[length(loss)] < max_err){
+        if(abs(loss[length(loss)] - loss_current) < max_err){
             return(list(linked_component_list = linked_component_list, score_list = score_list))
         }
         loss = c(loss, loss_current)
@@ -96,7 +96,7 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
         # print(loss_current)
     }
 
-    return(list(linked_component_list = linked_component_list, score_list = score_list))
+    return(list(linked_component_list = linked_component_list, score_list = score_list), loss = loss)
 }
 
 #' Procrustes Projection

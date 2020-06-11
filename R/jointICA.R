@@ -61,7 +61,7 @@ jointICA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
         ica_temp = fastICA(dat_temp, comp_num[i])
         list_component[[i]] = ica_temp$S
         for(j in 1 : length(group[[i]])){
-            list_score[[group[[i]][j]]][[i]] = ica_temp$A[, ifelse(j == 1, 1, cumsum(n_sample_temp[j - 1]) + 1) : cumsum(n_sample_temp[j])]
+            list_score[[group[[i]][j]]][[i]] = ica_temp$A[, ifelse(j == 1, 1, sum(n_sample_temp[1 : (j - 1)]) + 1) : sum(n_sample_temp[1 : j])]
         }
     }
 

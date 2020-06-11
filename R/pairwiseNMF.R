@@ -23,7 +23,7 @@
 #'
 #' @export
 
-pairwiseNMF <- function(dataset, group, comp_num){
+pairwiseNMF <- function(dataset, group, comp_num, pertubation = 0.0001){
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)
@@ -54,7 +54,7 @@ pairwiseNMF <- function(dataset, group, comp_num){
             temp_dat = cbind(temp_dat, dataset[[j]])
             temp_sample_n = c(temp_sample_n, ncol(dataset[[j]]))
         }
-        nmf_temp = nmf(temp_dat, comp_num[i], 'lee')
+        nmf_temp = nmf(temp_dat + pertubation, comp_num[i])
         list_component[[i]] = nmf_temp@fit@W
         for(j in 1 : length(group[[i]])){
             list_score[[group[[i]][j]]][[i]] = nmf_temp@fit@H[, ifelse(j == 1, 1, sum(temp_sample_n[1 : (j - 1)]) + 1) : sum(temp_sample_n[1 : j])]
