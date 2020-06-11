@@ -57,7 +57,7 @@ pairwiseNMF <- function(dataset, group, comp_num){
         nmf_temp = nmf(temp_dat, comp_num[i], 'lee')
         list_component[[i]] = nmf_temp@fit@W
         for(j in 1 : length(group[[i]])){
-            list_score[[group[[i]][j]]][[i]] = nmf_temp@fit@H[, ifelse(j == 1, 1, cumsum(temp_sample_n[j - 1]) + 1) : cumsum(temp_sample_n[j])]
+            list_score[[group[[i]][j]]][[i]] = nmf_temp@fit@H[, ifelse(j == 1, 1, sum(temp_sample_n[1 : (j - 1)]) + 1) : sum(temp_sample_n[1 : j])]
         }
     }
 
