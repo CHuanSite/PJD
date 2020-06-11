@@ -56,7 +56,7 @@ pairwiseICA <- function(dataset, group, comp_num){
         ica_temp = fastICA(temp_dat, comp_num[i])
         list_component[[i]] = ica_temp$S
         for(j in 1 : length(group[[i]])){
-            list_score[[group[[i]][j]]][[i]] = ica_temp$A[, ifelse(j == 1, 1, cumsum(temp_sample_n[j - 1]) + 1) : cumsum(temp_sample_n[j])]
+            list_score[[group[[i]][j]]][[i]] = ica_temp$A[, ifelse(j == 1, 1, sum(temp_sample_n[1 : (j - 1)]) + 1) : sum(temp_sample_n[1 : j])]
         }
     }
 
