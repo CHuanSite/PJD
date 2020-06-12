@@ -96,7 +96,7 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
         # print(loss_current)
     }
 
-    return(list(linked_component_list = linked_component_list, score_list = score_list), loss = loss)
+    return(list(linked_component_list = linked_component_list, score_list = score_list, loss = loss))
 }
 
 #' Procrustes Projection
