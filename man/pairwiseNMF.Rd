@@ -4,7 +4,7 @@
 \alias{pairwiseNMF}
 \title{Pairwise decomposition with Nonnegative Matrix Factorization}
 \usage{
-pairwiseNMF(dataset, group, comp_num)
+pairwiseNMF(dataset, group, comp_num, pertubation = 1e-04)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
@@ -12,6 +12,8 @@ pairwiseNMF(dataset, group, comp_num)
 \item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
 
 \item{comp_num}{A vector indicates the dimension of each compoent}
+
+\item{pertubation}{the pertubation of the 0 element in the analysis}
 }
 \value{
 A list contains the component and the score of each dataset on every component after pairwiseNMF algorithm

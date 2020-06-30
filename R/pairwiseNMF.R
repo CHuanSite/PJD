@@ -5,6 +5,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
+#' @param pertubation the pertubation of the 0 element in the analysis
 #'
 #' @importFrom NMF nmf
 #'
