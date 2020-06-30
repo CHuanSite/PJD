@@ -14,7 +14,7 @@
 #'
 #' @export
 
-LCA <- function(dataset, cov_list, eigen_space, group, comp_num){
+linkedPCA <- function(dataset, cov_list, eigen_space, group, comp_num){
     ## Add covariance matrix together
     add.cov <- function(cov_list, group){
         add_cov_list = list()
