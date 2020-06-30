@@ -108,6 +108,7 @@ configuration_setting_generation <- function(featureNum = 50,
 #' Generate simulation data
 #'
 #' @param configuration_setting setting for the configuration
+#' @param amplitude The amplitude of the score variance
 #'
 #' @keywords simulated data generation
 #'
@@ -117,7 +118,7 @@ configuration_setting_generation <- function(featureNum = 50,
 #'
 #' @export
 
-simulated_data_generation <- function(configuration_setting){
+simulated_data_generation <- function(configuration_setting, amplitude = 1){
     ## Setting up configurations
     featureNum = configuration_setting$featureNum
     DataNum = configuration_setting$DataNum
@@ -150,25 +151,25 @@ simulated_data_generation <- function(configuration_setting){
     D21 = rotate_component(individualComponent[[3]], 0)
     D22 = rotate_component(individualComponent[[4]], 0)
 
-    F1 = score_generation(commonlySharedNum, DataNum[1], c(60, 80))
-    F2 = score_generation(commonlySharedNum, DataNum[2], c(50, 70))
-    F3 = score_generation(commonlySharedNum, DataNum[3], c(60, 80))
-    F4 = score_generation(commonlySharedNum, DataNum[4], c(50, 60))
+    F1 = score_generation(commonlySharedNum, DataNum[1], c(6, 8) * amplitude)
+    F2 = score_generation(commonlySharedNum, DataNum[2], c(5, 7) * amplitude)
+    F3 = score_generation(commonlySharedNum, DataNum[3], c(6, 8) * amplitude)
+    F4 = score_generation(commonlySharedNum, DataNum[4], c(5, 6) * amplitude)
 
-    G1 = score_generation(partiallySharedNum[1], DataNum[1], c(30, 40))
-    G2 = score_generation(partiallySharedNum[1], DataNum[2], c(45, 60))
-    G3 = score_generation(partiallySharedNum[2], DataNum[3], c(50, 70))
-    G4 = score_generation(partiallySharedNum[2], DataNum[4], c(30, 65))
+    G1 = score_generation(partiallySharedNum[1], DataNum[1], c(3, 4) * amplitude)
+    G2 = score_generation(partiallySharedNum[1], DataNum[2], c(4, 6) * amplitude)
+    G3 = score_generation(partiallySharedNum[2], DataNum[3], c(5, 7) * amplitude)
+    G4 = score_generation(partiallySharedNum[2], DataNum[4], c(3, 6) * amplitude)
 
-    H1 = score_generation(partiallySharedNum[3], DataNum[1], c(30, 40))
-    H2 = score_generation(partiallySharedNum[4], DataNum[2], c(50, 60))
-    H3 = score_generation(partiallySharedNum[3], DataNum[3], c(45, 35))
-    H4 = score_generation(partiallySharedNum[4], DataNum[4], c(75, 55))
+    H1 = score_generation(partiallySharedNum[3], DataNum[1], c(3, 4) * amplitude)
+    H2 = score_generation(partiallySharedNum[4], DataNum[2], c(5, 6) * amplitude)
+    H3 = score_generation(partiallySharedNum[3], DataNum[3], c(4, 3) * amplitude)
+    H4 = score_generation(partiallySharedNum[4], DataNum[4], c(7, 5) * amplitude)
 
-    K1 = score_generation(individualSharedNum[1], DataNum[1], c(40, 50))
-    K2 = score_generation(individualSharedNum[2], DataNum[2], c(60, 70))
-    K3 = score_generation(individualSharedNum[3], DataNum[3], c(30, 40))
-    K4 = score_generation(individualSharedNum[4], DataNum[4], c(50, 60))
+    K1 = score_generation(individualSharedNum[1], DataNum[1], c(4, 5) * amplitude)
+    K2 = score_generation(individualSharedNum[2], DataNum[2], c(6, 7) * amplitude)
+    K3 = score_generation(individualSharedNum[3], DataNum[3], c(3, 4) * amplitude)
+    K4 = score_generation(individualSharedNum[4], DataNum[4], c(5, 6) * amplitude)
 
     E1 <- matrix(rnorm(featureNum * DataNum[1], 0, noiseVariance[1]), nrow = featureNum)
     E2 <- matrix(rnorm(featureNum * DataNum[2], 0, noiseVariance[2]), nrow = featureNum)

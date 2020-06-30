@@ -4,10 +4,12 @@
 \alias{simulated_data_generation}
 \title{Simulated Data Generation}
 \usage{
-simulated_data_generation(configuration_setting)
+simulated_data_generation(configuration_setting, amplitude = 1)
 }
 \arguments{
 \item{configuration_setting}{setting for the configuration}
+
+\item{amplitude}{The amplitude of the score variance}
 }
 \description{
 Generate simulation data
