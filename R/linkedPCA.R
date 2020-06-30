@@ -94,25 +94,6 @@ linkedPCA <- function(dataset, cov_list, eigen_space, group, comp_num){
     ## Output the final lca result
     lca.final <- function(dataset, cov_list, eigen_space, group, comp_num){
 
-        ## Parameters to be initialized
-        N = length(dataset)
-        K = length(group)
-        M = sum(comp_num)
-        p = nrow(dataset[[1]])
-        N_dataset = unlist(lapply(dataset, ncol))
-
-        ## Output the component and scores
-        list_score = list()
-        for(j in 1 : N){
-            list_score[[j]] = list()
-        }
-
-        for(i in 1 : K){
-            list_component[[i]] = matrix(0, nrow = p, ncol = comp_num[i])
-            for(j in 1 : N){
-                list_score[[j]][[i]] = matrix(0, nrow = comp_num[i], ncol = N_dataset[j])
-            }
-        }
 
 
         ## Helper function to do the LCA decomposition
@@ -140,6 +121,29 @@ linkedPCA <- function(dataset, cov_list, eigen_space, group, comp_num){
                 out_comp[index.helper] = used_lca$out_comp
             }
         }
+
+        ## Parameters to be initialized
+        N = length(dataset)
+        K = length(group)
+        M = sum(comp_num)
+        p = nrow(dataset[[1]])
+        N_dataset = unlist(lapply(dataset, ncol))
+
+        ## Output the component and scores
+        list_score = list()
+        list_component = list()
+
+        for(j in 1 : N){
+            list_score[[j]] = list()
+        }
+
+        for(i in 1 : K){
+            list_component[[i]] = matrix(0, nrow = p, ncol = comp_num[i])
+            for(j in 1 : N){
+                list_score[[j]][[i]] = matrix(0, nrow = comp_num[i], ncol = N_dataset[j])
+            }
+        }
+
 
         ## output the list component
         for(i in 1 : K){

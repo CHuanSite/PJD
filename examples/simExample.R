@@ -8,7 +8,9 @@ for(i in 1001 : 1100){
     ################################################################
 
     ## Simulation part of the algorithm
-    configuration_setting = configuration_setting_generation(featureNum = 50, DataNum = c(300, 300, 300, 300))
+    configuration_setting = configuration_setting_generation(featureNum = 50,
+                                                             DataNum = c(300, 300, 300, 300),
+                                                             noiseVariance = c(1, 1, 1, 1))
     data_list = simulated_data_generation(configuration_setting)
     cov_list = list(cov(t(data_list[[1]])), cov(t(data_list[[2]])), cov(t(data_list[[3]])), cov(t(data_list[[4]])))
     eigen_space = eigen(cov(t(data_list[[1]])) + cov(t(data_list[[2]])) + cov(t(data_list[[3]])) + cov(t(data_list[[4]])))$vectors[, 1 : 18]
@@ -20,9 +22,9 @@ for(i in 1001 : 1100){
     ## Compare the result of the three LCA algorithm
     ##
     ################################################################
-    pairPCA.result <- pairPCA(data_list, group, factor_num)
+    pairPCA.result <- pairwisePCA(data_list, group, factor_num)
     jointPCA.result <- jointPCA(data_list, group, factor_num)
-    linkedPCA.result <- LCA(data_list, cov_list, eigen_space, group, factor_num)
+    linkedPCA.result <- linkedPCA(data_list, cov_list, eigen_space, group, factor_num)
 
     ############################################################
     ##
