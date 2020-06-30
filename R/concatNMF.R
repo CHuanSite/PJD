@@ -1,6 +1,6 @@
-#' Pairwise decomposition with Nonnegative Matrix Factorization
+#' Concatenated decomposition with Nonnegative Matrix Factorization
 #'
-#' Pairwise decomposition of several matrices with Nonnegative Matrix Factorization (NMF)
+#' Concatenated decomposition of several matrices with Nonnegative Matrix Factorization (NMF)
 #'
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
@@ -9,7 +9,7 @@
 #'
 #' @importFrom NMF nmf
 #'
-#' @return A list contains the component and the score of each dataset on every component after pairwiseNMF algorithm
+#' @return A list contains the component and the score of each dataset on every component after concatNMF algorithm
 #'
 #' @keywords pairwise, NMF
 #'
@@ -20,11 +20,11 @@
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 #' comp_num = c(2,2,2,2,2,2,2,2,2)
-#' res_pairwiseNMF = pairwiseNMF(dataset, group, comp_num)
+#' res_concatNMF = concatNMF(dataset, group, comp_num)
 #'
 #' @export
 
-pairwiseNMF <- function(dataset, group, comp_num, pertubation = 0.0001){
+concatNMF <- function(dataset, group, comp_num, pertubation = 0.0001){
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)

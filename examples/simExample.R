@@ -22,7 +22,7 @@ for(i in 1001 : 1100){
     ## Compare the result of the three LCA algorithm
     ##
     ################################################################
-    pairPCA.result <- pairwisePCA(data_list, group, factor_num)
+    concatPCA.result <- concatPCA(data_list, group, factor_num)
     jointPCA.result <- jointPCA(data_list, group, factor_num)
     linkedPCA.result <- linkedPCA(data_list, cov_list, eigen_space, group, factor_num)
 
@@ -33,10 +33,15 @@ for(i in 1001 : 1100){
     ##
     ##
     ############################################################
-    comp.1 = cbind(pairPCA.result$linked_component_list[[1]], pairPCA.result$linked_component_list[[2]], pairPCA.result$linked_component_list[[4]], pairPCA.result$linked_component_list[[6]])
-    comp.2 = cbind(pairPCA.result$linked_component_list[[1]], pairPCA.result$linked_component_list[[2]], pairPCA.result$linked_component_list[[5]], pairPCA.result$linked_component_list[[7]])
-    comp.3 = cbind(pairPCA.result$linked_component_list[[1]], pairPCA.result$linked_component_list[[3]], pairPCA.result$linked_component_list[[4]], pairPCA.result$linked_component_list[[8]])
-    comp.4 = cbind(pairPCA.result$linked_component_list[[1]], pairPCA.result$linked_component_list[[3]], pairPCA.result$linked_component_list[[5]], pairPCA.result$linked_component_list[[9]])
+    comp.1 = cbind(concatPCA.result$linked_component_list[[1]], concatPCA.result$linked_component_list[[2]], concatPCA.result$linked_component_list[[4]], concatPCA.result$linked_component_list[[6]])
+    comp.2 = cbind(concatPCA.result$linked_component_list[[1]], concatPCA.result$linked_component_list[[2]], concatPCA.result$linked_component_list[[5]], concatPCA.result$linked_component_list[[7]])
+    comp.3 = cbind(concatPCA.result$linked_component_list[[1]], concatPCA.result$linked_component_list[[3]], concatPCA.result$linked_component_list[[4]], concatPCA.result$linked_component_list[[8]])
+    comp.4 = cbind(concatPCA.result$linked_component_list[[1]], concatPCA.result$linked_component_list[[3]], concatPCA.result$linked_component_list[[5]], concatPCA.result$linked_component_list[[9]])
+    comp.1 = svd(comp.1)$u
+    comp.2 = svd(comp.2)$u
+    comp.3 = svd(comp.3)$u
+    comp.4 = svd(comp.4)$u
+
     pct.1 = sum((svd(comp.1 %*% (t(comp.1) %*% data_list[[1]]))$d[1 : 8])^2) / sum(svd(data_list[[1]])$d[1 : 8]^2)
     pct.2 = sum((svd(comp.2 %*% (t(comp.2) %*% data_list[[2]]))$d[1 : 8])^2) / sum(svd(data_list[[2]])$d[1 : 8]^2)
     pct.3 = sum((svd(comp.3 %*% (t(comp.3) %*% data_list[[3]]))$d[1 : 8])^2) / sum(svd(data_list[[3]])$d[1 : 8]^2)

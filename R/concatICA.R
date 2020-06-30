@@ -1,16 +1,16 @@
-#' Pairwise Decomposition with Principal Component Analysis
+#' Concatenated decomposition with Independent Component Analysis
 #'
-#' Pairwise decomposition of several matrices with Principal Component Analysis (PCA)
+#' Concatenated decomposition of several linked matrices with Independent Component Analysis (ICA)
 #'
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
 #'
-#' @importFrom RSpectra svds
+#' @importFrom fastICA fastICA
 #'
-#' @return A list contains the component and the score of each dataset on every component after pairwisePCA algorithm
+#' @return A list contains the component and the score of each dataset on every component after concatPCA algorithm
 #'
-#' @keywords pairwise, PCA
+#' @keywords pairwise, ICA
 #'
 #' @examples
 #' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
@@ -19,11 +19,11 @@
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 #' comp_num = c(2,2,2,2,2,2,2,2,2)
-#' res_pairwisePCA = pairwisePCA(dataset, group, comp_num)
+#' res_concatICA = concatICA(dataset, group, comp_num)
 #'
 #' @export
 
-pairwisePCA <- function(dataset, group, comp_num){
+concatICA <- function(dataset, group, comp_num){
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)
@@ -37,6 +37,7 @@ pairwisePCA <- function(dataset, group, comp_num){
     for(j in 1 : N){
         list_score[[j]] = list()
     }
+
     for(i in 1 : K){
         list_component[[i]] = matrix(0, nrow = p, ncol = comp_num[i])
         for(j in 1 : N){
@@ -52,10 +53,10 @@ pairwisePCA <- function(dataset, group, comp_num){
             temp_dat = cbind(temp_dat, dataset[[j]])
             temp_sample_n = c(temp_sample_n, ncol(dataset[[j]]))
         }
-        svd_temp = svds(temp_dat, comp_num[i])
-        list_component[[i]] = svd_temp$u
+        ica_temp = fastICA(temp_dat, comp_num[i])
+        list_component[[i]] = ica_temp$S
         for(j in 1 : length(group[[i]])){
-            list_score[[group[[i]][j]]][[i]] = diag(svd_temp$d) %*% t(svd_temp$v)[, ifelse(j == 1, 1, sum(temp_sample_n[1 : (j - 1)]) + 1) : sum(temp_sample_n[1 : j])]
+            list_score[[group[[i]][j]]][[i]] = ica_temp$A[, ifelse(j == 1, 1, sum(temp_sample_n[1 : (j - 1)]) + 1) : sum(temp_sample_n[1 : j])]
         }
     }
 
