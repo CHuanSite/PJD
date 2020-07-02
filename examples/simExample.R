@@ -8,10 +8,10 @@ for(i in 1 : 1){
     ################################################################
 
     ## Simulation part of the algorithm
-    configuration_setting = configuration_setting_generation(featureNum = 1000,
-                                                             DataNum = c(30, 200, 30, 200),
+    configuration_setting = configuration_setting_generation(featureNum = 500,
+                                                             DataNum = c(30, 20, 30, 20),
                                                              noiseVariance = c(1, 1, 1, 1))
-    data_list = simulated_data_generation(configuration_setting, 10)
+    data_list = simulated_data_generation(configuration_setting, 1)
     cov_list = list(cov(t(data_list[[1]])), cov(t(data_list[[2]])), cov(t(data_list[[3]])), cov(t(data_list[[4]])))
     eigen_space = eigen(cov(t(data_list[[1]])) + cov(t(data_list[[2]])) + cov(t(data_list[[3]])) + cov(t(data_list[[4]])))$vectors[, 1 : 18]
     group = list(c(1, 2, 3, 4), c(1, 2), c(3, 4), c(1, 3), c(2, 4), c(1), c(2), c(3), c(4))
@@ -25,11 +25,12 @@ for(i in 1 : 1){
     concatPCA.result <- concatPCA(data_list, group, factor_num)
     jointPCA.result <- jointPCA(data_list, group, factor_num)
     linkedPCA.result <- linkedPCA(data_list, cov_list, eigen_space, group, factor_num)
+    seqPCA.result <- seqPCA(data_list, group, factor_num)
 
     ############################################################
     ##
     ##
-    ## LCA.1 result
+    ## concatPCA.result
     ##
     ##
     ############################################################
@@ -59,10 +60,11 @@ for(i in 1 : 1){
     distance.space.9 = mean(svd(t(concatPCA.result$linked_component_list[[9]]) %*% configuration_setting$individualComponent[[4]])$d)
     out.distance.1 = c(distance.space.1, distance.space.2, distance.space.3, distance.space.4, distance.space.5, distance.space.6, distance.space.7, distance.space.8, distance.space.9)
     print("Concatenate Finished!")
+
     ############################################################
     ##
     ##
-    ## LCA.2 result
+    ## jointPCA.result
     ##
     ##
     ############################################################
@@ -91,7 +93,7 @@ for(i in 1 : 1){
     ############################################################
     ##
     ##
-    ## LCA.3 result
+    ## linkedPCA.result
     ##
     ##
     ############################################################
@@ -118,6 +120,40 @@ for(i in 1 : 1){
     out.distance.3 = c(distance.space.1, distance.space.2, distance.space.3, distance.space.4, distance.space.5, distance.space.6, distance.space.7, distance.space.8, distance.space.9)
 
     print("Linked Finished!")
+
+    ############################################################
+    ##
+    ##
+    ## seqPCA.result
+    ##
+    ##
+    ############################################################
+    comp.1 = svd(cbind(seqPCA.result$linked_component_list[[1]], seqPCA.result$linked_component_list[[2]], seqPCA.result$linked_component_list[[4]], seqPCA.result$linked_component_list[[6]]))$u
+    comp.2 = svd(cbind(seqPCA.result$linked_component_list[[1]], seqPCA.result$linked_component_list[[2]], seqPCA.result$linked_component_list[[5]], seqPCA.result$linked_component_list[[7]]))$u
+    comp.3 = svd(cbind(seqPCA.result$linked_component_list[[1]], seqPCA.result$linked_component_list[[3]], seqPCA.result$linked_component_list[[4]], seqPCA.result$linked_component_list[[8]]))$u
+    comp.4 = svd(cbind(seqPCA.result$linked_component_list[[1]], seqPCA.result$linked_component_list[[3]], seqPCA.result$linked_component_list[[5]], seqPCA.result$linked_component_list[[9]]))$u
+    pct.1 = sum((svd(comp.1 %*% (t(comp.1) %*% data_list[[1]]))$d[1 : 8])^2) / sum(svd(data_list[[1]])$d[1 : 8]^2)
+    pct.2 = sum((svd(comp.2 %*% (t(comp.2) %*% data_list[[2]]))$d[1 : 8])^2) / sum(svd(data_list[[2]])$d[1 : 8]^2)
+    pct.3 = sum((svd(comp.3 %*% (t(comp.3) %*% data_list[[3]]))$d[1 : 8])^2) / sum(svd(data_list[[3]])$d[1 : 8]^2)
+    pct.4 = sum((svd(comp.4 %*% (t(comp.4) %*% data_list[[4]]))$d[1 : 8])^2) / sum(svd(data_list[[4]])$d[1 : 8]^2)
+    out.4 = c(pct.1, pct.2, pct.3, pct.4)
+
+
+    distance.space.1 = mean(svd(t(seqPCA.result$linked_component_list[[1]]) %*% configuration_setting$commonComponent)$d)
+    distance.space.2 = mean(svd(t(seqPCA.result$linked_component_list[[2]]) %*% configuration_setting$partialComponent[[1]])$d)
+    distance.space.3 = mean(svd(t(seqPCA.result$linked_component_list[[3]]) %*% configuration_setting$partialComponent[[2]])$d)
+    distance.space.4 = mean(svd(t(seqPCA.result$linked_component_list[[4]]) %*% configuration_setting$partialComponent[[3]])$d)
+    distance.space.5 = mean(svd(t(seqPCA.result$linked_component_list[[5]]) %*% configuration_setting$partialComponent[[4]])$d)
+    distance.space.6 = mean(svd(t(seqPCA.result$linked_component_list[[6]]) %*% configuration_setting$individualComponent[[1]])$d)
+    distance.space.7 = mean(svd(t(seqPCA.result$linked_component_list[[7]]) %*% configuration_setting$individualComponent[[2]])$d)
+    distance.space.8 = mean(svd(t(seqPCA.result$linked_component_list[[8]]) %*% configuration_setting$individualComponent[[3]])$d)
+    distance.space.9 = mean(svd(t(seqPCA.result$linked_component_list[[9]]) %*% configuration_setting$individualComponent[[4]])$d)
+    out.distance.4 = c(distance.space.1, distance.space.2, distance.space.3, distance.space.4, distance.space.5, distance.space.6, distance.space.7, distance.space.8, distance.space.9)
+
+    print("Seq Finished!")
+
+
+
     ############################################################
     ##
     ##
@@ -125,8 +161,8 @@ for(i in 1 : 1){
     ##
     ##
     ############################################################
-    out.dat = data.frame(out.1, out.2, out.3)
-    out.distance.dat = data.frame(out.distance.1, out.distance.2, out.distance.3)
+    out.dat = data.frame(out.1, out.2, out.3, out.4)
+    out.distance.dat = data.frame(out.distance.1, out.distance.2, out.distance.3, out.distance.4)
     # names(out.dat) = c("lca.biconvex", "lca.concat", "lca.covariance")
     # save(out.dat, file = paste0('./simulation/output1/output_', i, ".RData"))
     # print(i)

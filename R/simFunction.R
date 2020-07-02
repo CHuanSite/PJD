@@ -109,6 +109,7 @@ configuration_setting_generation <- function(featureNum = 50,
 #'
 #' @param configuration_setting setting for the configuration
 #' @param amplitude The amplitude of the score variance
+#' @param heterogeneousNoise Whether the noise for each dataset to be heteregeneous
 #'
 #' @keywords simulated data generation
 #'
@@ -118,7 +119,9 @@ configuration_setting_generation <- function(featureNum = 50,
 #'
 #' @export
 
-simulated_data_generation <- function(configuration_setting, amplitude = 1){
+simulated_data_generation <- function(configuration_setting,
+                                      amplitude = 1,
+                                      heterogeneousNoise = FALSE){
     ## Setting up configurations
     featureNum = configuration_setting$featureNum
     DataNum = configuration_setting$DataNum
@@ -175,6 +178,14 @@ simulated_data_generation <- function(configuration_setting, amplitude = 1){
     E2 <- matrix(rnorm(featureNum * DataNum[2], 0, noiseVariance[2]), nrow = featureNum)
     E3 <- matrix(rnorm(featureNum * DataNum[3], 0, noiseVariance[3]), nrow = featureNum)
     E4 <- matrix(rnorm(featureNum * DataNum[4], 0, noiseVariance[4]), nrow = featureNum)
+
+    if (heterogeneousNoise){
+        E1 = diag(runif(featureNum, 3, 10)) %*% E1
+        E2 = diag(runif(featureNum, 3, 10)) %*% E2
+        E3 = diag(runif(featureNum, 3, 10)) %*% E3
+        E4 = diag(runif(featureNum, 3, 10)) %*% E4
+    }
+
     #
     Y1 = A11 %*% F1 + B11 %*% G1 + C11 %*% H1 + D11 %*% K1 + E1
     Y2 = A12 %*% F2 + B12 %*% G2 + C12 %*% H2 + D12 %*% K2 + E2

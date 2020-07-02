@@ -17,8 +17,8 @@
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
-#' group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
-#' comp_num = c(2,2,2,2,2,2,2,2,2)
+#' group = list(c(1, 2, 3, 4), c(1, 2), c(3, 4), c(1, 3), c(2, 4), c(1), c(2), c(3), c(4))
+#' comp_num = c(2, 2, 2, 2, 2, 2, 2, 2, 2)
 #' res_seqPCA = seqPCA(dataset, group, comp_num)
 #'
 #' @export
@@ -50,7 +50,7 @@ seqPCA <- function(dataset, group, comp_num){
     data_comp_num = rep(0, N)
     for(i in 1 : K){
         for(j in group[[i]]){
-            data_comp_num[group[[i]][j]] = data_comp_num[group[[i]][j]] + 1
+            data_comp_num[j] = data_comp_num[j] + comp_num[i]
         }
     }
 
@@ -61,15 +61,26 @@ seqPCA <- function(dataset, group, comp_num){
     }
 
     ## compute the components sequentially
-    temp_comp = c()
     for(i in 1 : K){
+        temp_comp = c()
         for(j in group[[i]]){
             temp_comp = cbind(temp_comp, data_comp_total[[j]])
         }
         temp_comp_svd = svds(temp_comp, comp_num[i])
+        print(svd(temp_comp)$d^2)
         list_component[[i]] = temp_comp_svd$u
-        for(i in 1 : N){
-            data_comp_total[[i]] = data_comp_total[[i]] - temp_comp_svd$u %*% (t(temp_comp_svd$u) %*% data_comp_total[[i]])
+
+        ## Orthogonalize the component
+        if(i >= 2){
+            for(j in 1 : (i - 1)){
+                list_component[[i]] = list_component[[i]] - list_component[[j]] %*% (t(list_component[[j]]) %*% list_component[[i]])
+            }
+        }
+
+        ## Project the extracted space onto orthogonal space
+        for(j in group[[i]]){
+            data_comp_total[[j]] = data_comp_total[[j]] - list_component[[i]] %*% (t(list_component[[i]]) %*% data_comp_total[[j]])
+            # data_comp_total[[j]] = svd(data_comp_total[[j]])$u[, 1 : (ncol(data_comp_total[[j]]) - comp_num[i])]
         }
     }
 

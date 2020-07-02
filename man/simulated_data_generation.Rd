@@ -4,12 +4,18 @@
 \alias{simulated_data_generation}
 \title{Simulated Data Generation}
 \usage{
-simulated_data_generation(configuration_setting, amplitude = 1)
+simulated_data_generation(
+  configuration_setting,
+  amplitude = 1,
+  heterogeneousNoise = FALSE
+)
 }
 \arguments{
 \item{configuration_setting}{setting for the configuration}
 
 \item{amplitude}{The amplitude of the score variance}
+
+\item{heterogeneousNoise}{Whether the noise for each dataset to be heteregeneous}
 }
 \description{
 Generate simulation data
