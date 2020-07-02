@@ -180,10 +180,10 @@ simulated_data_generation <- function(configuration_setting,
     E4 <- matrix(rnorm(featureNum * DataNum[4], 0, noiseVariance[4]), nrow = featureNum)
 
     if (heterogeneousNoise){
-        E1 = diag(runif(featureNum, 3, 10)) %*% E1
-        E2 = diag(runif(featureNum, 3, 10)) %*% E2
-        E3 = diag(runif(featureNum, 3, 10)) %*% E3
-        E4 = diag(runif(featureNum, 3, 10)) %*% E4
+        E1 = diag(runif(featureNum, 0.5, 1.5)) %*% E1
+        E2 = diag(runif(featureNum, 0.5, 1.5)) %*% E2
+        E3 = diag(runif(featureNum, 0.5, 1.5)) %*% E3
+        E4 = diag(runif(featureNum, 0.5, 1.5)) %*% E4
     }
 
     #

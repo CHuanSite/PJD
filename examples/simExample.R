@@ -9,9 +9,12 @@ for(i in 1 : 1){
 
     ## Simulation part of the algorithm
     configuration_setting = configuration_setting_generation(featureNum = 500,
-                                                             DataNum = c(30, 20, 30, 20),
+                                                             DataNum = c(50, 50, 50, 50),
                                                              noiseVariance = c(1, 1, 1, 1))
-    data_list = simulated_data_generation(configuration_setting, 1)
+    data_list = simulated_data_generation(configuration_setting,
+                                          amplitude =  100,
+                                          heterogeneousNoise = FALSE)
+
     cov_list = list(cov(t(data_list[[1]])), cov(t(data_list[[2]])), cov(t(data_list[[3]])), cov(t(data_list[[4]])))
     eigen_space = eigen(cov(t(data_list[[1]])) + cov(t(data_list[[2]])) + cov(t(data_list[[3]])) + cov(t(data_list[[4]])))$vectors[, 1 : 18]
     group = list(c(1, 2, 3, 4), c(1, 2), c(3, 4), c(1, 3), c(2, 4), c(1), c(2), c(3), c(4))
@@ -168,6 +171,22 @@ for(i in 1 : 1){
     # print(i)
     print(list(pctExplained = out.dat, angleDistance = out.distance.dat))
 }
+
+
+
+
+
+## Theory
+## 1. Low diemnsional regime: p < n
+##  1. Rank Selection
+##  2. Consistency
+## 2. High dimensional regime: p >> n
+##  1. Sparsity
+##  2. Rank Selection
+##  3. Consistency
+##  4. Upper Rate + Lower Rate
+
+
 
 
 
