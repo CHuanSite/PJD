@@ -11,7 +11,9 @@ library(devtools)
 install_github("CHuanSite/PJD")
 ```
 
-This package implements two categories of algorithms to decompose multiple datasets, pairwise and joint. For each category, there are three available algorithms: Principal Component Analysis (PCA), Independent Component Analysis (ICA) and Nonnegative Matrix Factorization (NMF). For each method, the algorithm takes three arguments, `dataset`, `group` and `comp_num`, specifying which datasets to be used, what is the structure among the datasets and what's the dimension for each component.
+This package implements two categories of algorithms to decompose multiple datasets, concatenate and joint. For each category, there are three available algorithms: Principal Component Analysis (PCA), Independent Component Analysis (ICA) and Nonnegative Matrix Factorization (NMF). For each method, the algorithm takes three arguments, `dataset`, `group` and `comp_num`, specifying which datasets to be used, what is the structure among the datasets and what's the dimension for each component.
+
+In addition to these two categories, two more algorithms is proposed, which are sequential algorithm, `linkedPCA` and `seqPCA`.
 
 Example usage:
 
@@ -27,15 +29,18 @@ dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 comp_num = c(2,2,2,2,2,2,2,2,2)
 
-## Pairwise PCA, ICA, NMF
-pairPCA_res = pairwisePCA(dataset, group, comp_num)
-pairICA_res = pairwiseICA(dataset, group, comp_num)
-pairNMF_res = pairwiseNMF(dataset, group, comp_num)
+## Concatenated PCA, ICA, NMF
+pairPCA_res = concatPCA(dataset, group, comp_num)
+pairICA_res = concatICA(dataset, group, comp_num)
+pairNMF_res = concatNMF(dataset, group, comp_num)
 
 ## Joint PCA, ICA, NMF
 jointPCA_res = jointPCA(dataset, group, comp_num)
 jointICA_res = jointICA(dataset, group, comp_num)
 jointNMF_res = jointNMF(dataset, group, comp_num)
+
+## seqPCA
+seqPCA_res = seqPCA(dataset, group, comp_num)
 ```
 
 To access the component
