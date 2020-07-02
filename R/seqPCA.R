@@ -12,14 +12,14 @@
 #'
 #' @keywords sequential, PCA
 #'
-#' @example
+#' @examples
 #' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 #' comp_num = c(2,2,2,2,2,2,2,2,2)
-#' res_concatICA = concatICA(dataset, group, comp_num)
+#' res_seqPCA = seqPCA(dataset, group, comp_num)
 #'
 #' @export
 
@@ -57,13 +57,13 @@ seqPCA <- function(dataset, group, comp_num){
     ## compute the component for each dataset
     data_comp_total = list()
     for(i in 1 : N){
-        data_comp_total[[i]] = svds(dataset[[i]], data_comp_num[i])
+        data_comp_total[[i]] = svds(dataset[[i]], data_comp_num[i])$u
     }
 
     ## compute the components sequentially
     temp_comp = c()
     for(i in 1 : K){
-        for(j in group[[i]][k]){
+        for(j in group[[i]]){
             temp_comp = cbind(temp_comp, data_comp_total[[j]])
         }
         temp_comp_svd = svds(temp_comp, comp_num[i])
