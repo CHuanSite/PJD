@@ -8,10 +8,10 @@ for(i in 1 : 1){
     ################################################################
 
     ## Simulation part of the algorithm
-    configuration_setting = configuration_setting_generation(featureNum = 500,
-                                                             DataNum = c(100, 100, 100, 100),
+    configuration_setting = configuration_setting_generation(featureNum = 1000,
+                                                             DataNum = c(30, 200, 30, 200),
                                                              noiseVariance = c(1, 1, 1, 1))
-    data_list = simulated_data_generation(configuration_setting, 100)
+    data_list = simulated_data_generation(configuration_setting, 10)
     cov_list = list(cov(t(data_list[[1]])), cov(t(data_list[[2]])), cov(t(data_list[[3]])), cov(t(data_list[[4]])))
     eigen_space = eigen(cov(t(data_list[[1]])) + cov(t(data_list[[2]])) + cov(t(data_list[[3]])) + cov(t(data_list[[4]])))$vectors[, 1 : 18]
     group = list(c(1, 2, 3, 4), c(1, 2), c(3, 4), c(1, 3), c(2, 4), c(1), c(2), c(3), c(4))
@@ -58,7 +58,7 @@ for(i in 1 : 1){
     distance.space.8 = mean(svd(t(concatPCA.result$linked_component_list[[8]]) %*% configuration_setting$individualComponent[[3]])$d)
     distance.space.9 = mean(svd(t(concatPCA.result$linked_component_list[[9]]) %*% configuration_setting$individualComponent[[4]])$d)
     out.distance.1 = c(distance.space.1, distance.space.2, distance.space.3, distance.space.4, distance.space.5, distance.space.6, distance.space.7, distance.space.8, distance.space.9)
-
+    print("Concatenate Finished!")
     ############################################################
     ##
     ##
@@ -76,7 +76,6 @@ for(i in 1 : 1){
     pct.4 = sum((svd(comp.4 %*% (t(comp.4) %*% data_list[[4]]))$d[1 : 8])^2) / sum(svd(data_list[[4]])$d[1 : 8]^2)
     out.2 = c(pct.1, pct.2, pct.3, pct.4)
 
-
     distance.space.1 = mean(svd(t(jointPCA.result$linked_component_list[[1]]) %*% configuration_setting$commonComponent)$d)
     distance.space.2 = mean(svd(t(jointPCA.result$linked_component_list[[2]]) %*% configuration_setting$partialComponent[[1]])$d)
     distance.space.3 = mean(svd(t(jointPCA.result$linked_component_list[[3]]) %*% configuration_setting$partialComponent[[2]])$d)
@@ -87,6 +86,7 @@ for(i in 1 : 1){
     distance.space.8 = mean(svd(t(jointPCA.result$linked_component_list[[8]]) %*% configuration_setting$individualComponent[[3]])$d)
     distance.space.9 = mean(svd(t(jointPCA.result$linked_component_list[[9]]) %*% configuration_setting$individualComponent[[4]])$d)
     out.distance.2 = c(distance.space.1, distance.space.2, distance.space.3, distance.space.4, distance.space.5, distance.space.6, distance.space.7, distance.space.8, distance.space.9)
+    print("Joint Finished!")
 
     ############################################################
     ##
@@ -117,6 +117,7 @@ for(i in 1 : 1){
     distance.space.9 = mean(svd(t(linkedPCA.result$linked_component_list[[9]]) %*% configuration_setting$individualComponent[[4]])$d)
     out.distance.3 = c(distance.space.1, distance.space.2, distance.space.3, distance.space.4, distance.space.5, distance.space.6, distance.space.7, distance.space.8, distance.space.9)
 
+    print("Linked Finished!")
     ############################################################
     ##
     ##
@@ -129,6 +130,8 @@ for(i in 1 : 1){
     # names(out.dat) = c("lca.biconvex", "lca.concat", "lca.covariance")
     # save(out.dat, file = paste0('./simulation/output1/output_', i, ".RData"))
     # print(i)
-    print(out.dat)
-    print(out.distance.dat)
+    print(list(pctExplained = out.dat, angleDistance = out.distance.dat))
 }
+
+
+
