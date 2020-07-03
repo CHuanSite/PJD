@@ -75,7 +75,7 @@ seqPCA <- function(dataset, group, comp_num){
 
         temp_comp_svd = svds(temp_comp, comp_num[i])
         # print(svd(temp_comp)$d^2)
-        plot(svd(temp_comp)$d^2, xlab = "index of eigenvalue", ylab = "eigenvalue", main = paste0("Group of Dataset: ", toString(group[[i]])))
+        plot(svd(temp_comp)$d^2, xlab = "index of eigenvalue", ylab = "eigenvalue", main = paste0("Group of Dataset: ", toString(group[[i]])), type = "o")
         list_component[[i]] = temp_comp_svd$u
 
         # ## Orthogonalize the component

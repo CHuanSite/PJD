@@ -12,7 +12,7 @@ for(i in 1 : 1){
                                                              DataNum = c(50, 50, 50, 50),
                                                              noiseVariance = c(1, 1, 1, 1))
     data_list = simulated_data_generation(configuration_setting,
-                                          amplitude =  100,
+                                          amplitude =  10,
                                           heterogeneousNoise = FALSE)
 
     cov_list = list(cov(t(data_list[[1]])), cov(t(data_list[[2]])), cov(t(data_list[[3]])), cov(t(data_list[[4]])))

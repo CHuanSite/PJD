@@ -30,9 +30,9 @@ group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 comp_num = c(2,2,2,2,2,2,2,2,2)
 
 ## Concatenated PCA, ICA, NMF
-pairPCA_res = concatPCA(dataset, group, comp_num)
-pairICA_res = concatICA(dataset, group, comp_num)
-pairNMF_res = concatNMF(dataset, group, comp_num)
+concatPCA_res = concatPCA(dataset, group, comp_num)
+concatICA_res = concatICA(dataset, group, comp_num)
+concatNMF_res = concatNMF(dataset, group, comp_num)
 
 ## Joint PCA, ICA, NMF
 jointPCA_res = jointPCA(dataset, group, comp_num)
