@@ -154,36 +154,36 @@ simulated_data_generation <- function(configuration_setting,
     D21 = rotate_component(individualComponent[[3]], 0)
     D22 = rotate_component(individualComponent[[4]], 0)
 
-    F1 = score_generation(commonlySharedNum, DataNum[1], c(6, 8) * amplitude)
-    F2 = score_generation(commonlySharedNum, DataNum[2], c(5, 7) * amplitude)
-    F3 = score_generation(commonlySharedNum, DataNum[3], c(6, 8) * amplitude)
-    F4 = score_generation(commonlySharedNum, DataNum[4], c(5, 6) * amplitude)
+    F1 = score_generation(commonlySharedNum, DataNum[1], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[1])
+    F2 = score_generation(commonlySharedNum, DataNum[2], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[2])
+    F3 = score_generation(commonlySharedNum, DataNum[3], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[3])
+    F4 = score_generation(commonlySharedNum, DataNum[4], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[4])
 
-    G1 = score_generation(partiallySharedNum[1], DataNum[1], c(3, 4) * amplitude)
-    G2 = score_generation(partiallySharedNum[1], DataNum[2], c(4, 6) * amplitude)
-    G3 = score_generation(partiallySharedNum[2], DataNum[3], c(5, 7) * amplitude)
-    G4 = score_generation(partiallySharedNum[2], DataNum[4], c(3, 6) * amplitude)
+    G1 = score_generation(partiallySharedNum[1], DataNum[1], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[1])
+    G2 = score_generation(partiallySharedNum[1], DataNum[2], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[2])
+    G3 = score_generation(partiallySharedNum[2], DataNum[3], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[3])
+    G4 = score_generation(partiallySharedNum[2], DataNum[4], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[4])
 
-    H1 = score_generation(partiallySharedNum[3], DataNum[1], c(3, 4) * amplitude)
-    H2 = score_generation(partiallySharedNum[4], DataNum[2], c(5, 6) * amplitude)
-    H3 = score_generation(partiallySharedNum[3], DataNum[3], c(4, 3) * amplitude)
-    H4 = score_generation(partiallySharedNum[4], DataNum[4], c(7, 5) * amplitude)
+    H1 = score_generation(partiallySharedNum[3], DataNum[1], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[1])
+    H2 = score_generation(partiallySharedNum[4], DataNum[2], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[2])
+    H3 = score_generation(partiallySharedNum[3], DataNum[3], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[3])
+    H4 = score_generation(partiallySharedNum[4], DataNum[4], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[4])
 
-    K1 = score_generation(individualSharedNum[1], DataNum[1], c(4, 5) * amplitude)
-    K2 = score_generation(individualSharedNum[2], DataNum[2], c(6, 7) * amplitude)
-    K3 = score_generation(individualSharedNum[3], DataNum[3], c(3, 4) * amplitude)
-    K4 = score_generation(individualSharedNum[4], DataNum[4], c(5, 6) * amplitude)
+    K1 = score_generation(individualSharedNum[1], DataNum[1], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[1])
+    K2 = score_generation(individualSharedNum[2], DataNum[2], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[2])
+    K3 = score_generation(individualSharedNum[3], DataNum[3], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[3])
+    K4 = score_generation(individualSharedNum[4], DataNum[4], c(runif(1, 1, 2), runif(1, 1, 2)) * amplitude * noiseVariance[4])
 
-    E1 <- matrix(rnorm(featureNum * DataNum[1], 0, noiseVariance[1]), nrow = featureNum)
-    E2 <- matrix(rnorm(featureNum * DataNum[2], 0, noiseVariance[2]), nrow = featureNum)
-    E3 <- matrix(rnorm(featureNum * DataNum[3], 0, noiseVariance[3]), nrow = featureNum)
-    E4 <- matrix(rnorm(featureNum * DataNum[4], 0, noiseVariance[4]), nrow = featureNum)
+    E1 <- matrix(rnorm(featureNum * DataNum[1], 0, sqrt(noiseVariance[1])), nrow = featureNum)
+    E2 <- matrix(rnorm(featureNum * DataNum[2], 0, sqrt(noiseVariance[2])), nrow = featureNum)
+    E3 <- matrix(rnorm(featureNum * DataNum[3], 0, sqrt(noiseVariance[3])), nrow = featureNum)
+    E4 <- matrix(rnorm(featureNum * DataNum[4], 0, sqrt(noiseVariance[4])), nrow = featureNum)
 
     if (heterogeneousNoise){
-        E1 = diag(runif(featureNum, 0.5, 1.5)) %*% E1
-        E2 = diag(runif(featureNum, 0.5, 1.5)) %*% E2
-        E3 = diag(runif(featureNum, 0.5, 1.5)) %*% E3
-        E4 = diag(runif(featureNum, 0.5, 1.5)) %*% E4
+        E1 = diag(runif(featureNum, 0.5, 1)) %*% E1
+        E2 = diag(runif(featureNum, 0.5, 1)) %*% E2
+        E3 = diag(runif(featureNum, 0.5, 1)) %*% E3
+        E4 = diag(runif(featureNum, 0.5, 1)) %*% E4
     }
 
     #

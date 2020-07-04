@@ -23,6 +23,7 @@
 #'
 #' @export
 
+
 seqPCA <- function(dataset, group, comp_num){
 
     ## Parameters to be initialized
