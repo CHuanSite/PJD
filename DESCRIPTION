@@ -10,7 +10,8 @@ Imports: tidyverse,
     fastICA,
     NMF,
     Biobase,
-    MASS
+    MASS,
+    RMTstat
 Description: This is a R Package for Visualizing Biologically StructuredGene Expression Matrix Environment Based on Low Rank Models, pairwisely and jointly.
 License: GPL-3
 Encoding: UTF-8

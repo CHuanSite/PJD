@@ -10,10 +10,10 @@ for(i in 1 : 1){
     ## Simulation part of the algorithm
     configuration_setting = configuration_setting_generation(featureNum = 500,
                                                              DataNum = c(50, 50, 50, 50),
-                                                             noiseVariance = c(1, 1, 1, 1))
+                                                             noiseVariance = c(1, 2, 3, 4))
     data_list = simulated_data_generation(configuration_setting,
-                                          amplitude =  10,
-                                          heterogeneousNoise = FALSE)
+                                          amplitude =  100,
+                                          heterogeneousNoise = TRUE)
 
     cov_list = list(cov(t(data_list[[1]])), cov(t(data_list[[2]])), cov(t(data_list[[3]])), cov(t(data_list[[4]])))
     eigen_space = eigen(cov(t(data_list[[1]])) + cov(t(data_list[[2]])) + cov(t(data_list[[3]])) + cov(t(data_list[[4]])))$vectors[, 1 : 18]
