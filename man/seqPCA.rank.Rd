@@ -4,12 +4,14 @@
 \alias{seqPCA.rank}
 \title{Sequential Decomposition with PCA and automatic rank selection}
 \usage{
-seqPCA.rank(dataset, group, threshold, backup = 0)
+seqPCA.rank(dataset, group, total_number = NA, threshold, backup = 0)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
 
 \item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
+
+\item{total_number}{Total number of components will be extracted, if default value is set to NA, then BEMA will be used.}
 
 \item{threshold}{The threshold used to cutoff the eigenvalues}
 

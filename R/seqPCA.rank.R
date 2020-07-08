@@ -6,6 +6,7 @@
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param threshold The threshold used to cutoff the eigenvalues
 #' @param backup A backup variable, which permits the overselection of the components by BEMA
+#' @param total_number Total number of components will be extracted, if default value is set to NA, then BEMA will be used.
 #'
 #' @importFrom RSpectra svds
 #'
@@ -24,7 +25,7 @@
 #'
 #' @export
 
-seqPCA.rank <- function(dataset, group, threshold, backup = 0){
+seqPCA.rank <- function(dataset, group, total_number = NA, threshold, backup = 0){
 
     ## Parameters to be initialized
     N = length(dataset)
@@ -43,7 +44,11 @@ seqPCA.rank <- function(dataset, group, threshold, backup = 0){
     ## Using BEMA to extract the number of components
     for(i in 1 : N){
         svd_temp = svd(dataset[[i]])
-        data_comp_num[i] = BEMA(svd_temp$d^2 / ncol(dataset[[i]]), p = nrow(dataset[[i]]), n = ncol(dataset[[i]])) + backup
+        if(is.na(total_number)){
+            data_comp_num[i] = BEMA(svd_temp$d^2 / ncol(dataset[[i]]), p = nrow(dataset[[i]]), n = ncol(dataset[[i]])) + backup
+        }else{
+            data_comp_num[i] = total_number[i] + backup
+        }
         data_comp_total[[i]] = svd_temp$u[, 1 : data_comp_num[i]]
     }
 
