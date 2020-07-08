@@ -26,7 +26,7 @@ BEMA <- function(eigenvalue, p, n, alpha = 0.2, beta = 0.1){
     p_tilde = min(n, p)
     gamma_n = p / n
     k = seq(ceiling(p_tilde * alpha), floor(p_tilde * (1 - alpha)), 1)
-    k_quantile = qmp(k / p_tilde, ndf = n, pdim = p, lower.tail = FALSE)
+    k_quantile = qmp(k / p_tilde, ndf = min(n,p), pdim = max(p,n), lower.tail = FALSE)
 
     sigma = sum(k_quantile * eigenvalue[k]) / sum(k_quantile * k_quantile)
 
