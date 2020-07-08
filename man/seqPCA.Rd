@@ -4,7 +4,7 @@
 \alias{seqPCA}
 \title{Sequential Decomposition with PCA}
 \usage{
-seqPCA(dataset, group, comp_num)
+seqPCA(dataset, group, comp_num, backup = 0)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
@@ -12,6 +12,8 @@ seqPCA(dataset, group, comp_num)
 \item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
 
 \item{comp_num}{A vector indicates the dimension of each compoent}
+
+\item{backup}{A positive scalar to determine how many PCs to over select}
 }
 \value{
 A list contains the component and the score of each dataset on every component after seqPCA algorithm

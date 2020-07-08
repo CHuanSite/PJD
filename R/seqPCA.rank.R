@@ -86,17 +86,6 @@ seqPCA.rank <- function(dataset, group, threshold, backup = 0){
                 # data_comp_total[[j]] = svd(data_comp_total[[j]])$u[, 1 : (ncol(data_comp_total[[j]]) - comp_num[i])]
             }
         }
-        # print(svd(temp_comp)$d^2)
-
-        # ## Orthogonalize the component
-        # if(i >= 2){
-        #     for(j in 1 : (i - 1)){
-        #         list_component[[i]] = list_component[[i]] - list_component[[j]] %*% (t(list_component[[j]]) %*% list_component[[i]])
-        #     }
-        # }
-
-        ## Project the extracted space onto orthogonal space
-        # for(j in group[[i]]){
     }
 
     ## compute the score for each dataset

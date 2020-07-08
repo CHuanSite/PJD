@@ -23,6 +23,9 @@
 #' @export
 
 BEMA <- function(eigenvalue, p, n, alpha = 0.2, beta = 0.1){
+    p = min(n, p)
+    n = max(n, p)
+
     p_tilde = min(n, p)
     gamma_n = p / n
     k = seq(ceiling(p_tilde * alpha), floor(p_tilde * (1 - alpha)), 1)

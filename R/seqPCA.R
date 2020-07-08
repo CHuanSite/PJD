@@ -5,6 +5,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
+#' @param backup A positive scalar to determine how many PCs to over select
 #'
 #' @importFrom RSpectra svds
 #'
@@ -24,7 +25,7 @@
 #' @export
 
 
-seqPCA <- function(dataset, group, comp_num){
+seqPCA <- function(dataset, group, comp_num, backup = 0){
 
     ## Parameters to be initialized
     N = length(dataset)
@@ -51,7 +52,7 @@ seqPCA <- function(dataset, group, comp_num){
     data_comp_num = rep(0, N)
     for(i in 1 : K){
         for(j in group[[i]]){
-            data_comp_num[j] = data_comp_num[j] + comp_num[i]
+            data_comp_num[j] = data_comp_num[j] + comp_num[i] + backup
         }
     }
 
