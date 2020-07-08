@@ -30,5 +30,11 @@ BEMA <- function(eigenvalue, p, n, alpha = 0.2, beta = 0.1){
 
     sigma = sum(k_quantile * eigenvalue[k]) / sum(k_quantile * k_quantile)
 
-    return(sum(eigenvalue > sigma * ((1 + sqrt(gamma_n))^2 + qtw(1 - beta) * n^(-2/3) * gamma_n^(-1/6) * (1 + sqrt(gamma_n))^(4/3))))
+    K = sum(eigenvalue > sigma * ((1 + sqrt(gamma_n))^2 + qtw(1 - beta) * n^(-2/3) * gamma_n^(-1/6) * (1 + sqrt(gamma_n))^(4/3)))
+
+    if(is.na(K)){
+        return(0)
+    }else{
+        return(K)
+    }
 }
