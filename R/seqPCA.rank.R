@@ -43,7 +43,7 @@ seqPCA.rank <- function(dataset, group, threshold, backup = 0){
     ## Using BEMA to extract the number of components
     for(i in 1 : N){
         svd_temp = svd(dataset[[i]])
-        data_comp_num[i] = BEMA(svd_temp$d^2 / ncol(dataset[[i]]), p = ncol(dataset[[i]]), n = nrow(dataset[[i]])) + backup
+        data_comp_num[i] = BEMA(svd_temp$d^2 / ncol(dataset[[i]]), p = nrow(dataset[[i]]), n = ncol(dataset[[i]])) + backup
         data_comp_total[[i]] = svd_temp$u[, 1 : data_comp_num[i]]
     }
 
