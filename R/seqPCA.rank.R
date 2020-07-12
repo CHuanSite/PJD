@@ -21,11 +21,11 @@
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' group = list(c(1, 2, 3, 4), c(1, 2), c(3, 4), c(1, 3), c(2, 4), c(1), c(2), c(3), c(4))
 #' threshold = c(3, 1.5, 1.5, 1.5, 1.5, 0.5, 0.5, 0.5, 0.5)
-#' res_seqPCA = seqPCA.rank(dataset, group, threshold)
+#' res_seqPCA = seqPCA.rank(dataset, group, threshold = threshold)
 #'
 #' @export
 
-seqPCA.rank <- function(dataset, group, total_number = NA, threshold, backup = 0){
+seqPCA.rank <- function(dataset, group, total_number = NULL, threshold, backup = 0){
 
     ## Parameters to be initialized
     N = length(dataset)
@@ -44,7 +44,7 @@ seqPCA.rank <- function(dataset, group, total_number = NA, threshold, backup = 0
     ## Using BEMA to extract the number of components
     for(i in 1 : N){
         svd_temp = svd(dataset[[i]])
-        if(is.na(total_number)){
+        if(is.null(total_number)){
             data_comp_num[i] = BEMA(svd_temp$d^2 / ncol(dataset[[i]]), p = nrow(dataset[[i]]), n = ncol(dataset[[i]])) + backup
         }else{
             data_comp_num[i] = total_number[i] + backup

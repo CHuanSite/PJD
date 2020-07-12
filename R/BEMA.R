@@ -23,16 +23,17 @@
 #' @export
 
 BEMA <- function(eigenvalue, p, n, alpha = 0.2, beta = 0.1){
-    p = min(n, p)
-    n = max(n, p)
+    # p = min(n, p)
+    # n = max(n, p)
 
     p_tilde = min(n, p)
     gamma_n = p / n
     k = seq(ceiling(p_tilde * alpha), floor(p_tilde * (1 - alpha)), 1)
-    k_quantile = qmp(k / p_tilde, ndf = n, pdim = p, lower.tail = FALSE)
+    print(k / p_tilde)
+    k_quantile = marchenko_pastur_quantile(k / p_tilde, n = n, p = p)
 
     sigma = sum(k_quantile * eigenvalue[k]) / sum(k_quantile * k_quantile)
-
+    print(sigma)
     K = sum(eigenvalue > sigma * ((1 + sqrt(gamma_n))^2 + qtw(1 - beta) * n^(-2/3) * gamma_n^(-1/6) * (1 + sqrt(gamma_n))^(4/3)))
 
     if(is.na(K)){
