@@ -15,7 +15,7 @@ This package implements two categories of algorithms to decompose multiple datas
 
 In addition to these two categories, two more algorithms is proposed, which are sequential algorithm, `linkedPCA` and `seqPCA`.
 
-Example usage:
+## Example usage:
 
 ```R
 library(PJD)
@@ -54,6 +54,12 @@ pairPCA_res$score_list
 ```
 
 ## sc-RNAseq Example
+
+First, install the 'googleDrive' package
+
+```R
+install.package('googledrive')
+```
 
 Download RNA and explaination data from Google Drive,
 
@@ -135,4 +141,13 @@ plot(t(seqPCA_res$score_list[[3]][[4]]), col = inVivo_bulk_exp$color, pch = 16, 
 plot(t(seqPCA_res$score_list[[2]][[5]]), col = inVitro_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
 plot(t(seqPCA_res$score_list[[4]][[5]]), col = inVivo_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
 ```
+
+## Source
+
+The latest developer version is available in the [Github repository](https://github.com/CHuanSite/PJD).
+
+## Contact
+
+For any improvements and issues that need to be addressed, please contact [Huan Chen](hchen130@jhu.edu).
+
 
