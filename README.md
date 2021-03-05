@@ -100,7 +100,7 @@ inVivo_bulk_exp = read.table("3_inVivo_Bulk_BrainSpan.RNAseq.Gene.DFC.pd.txt", s
 inVivo_sc_exp = read.table("4_inVivo_SingleCell_CtxDevoSC4kTopoTypoTempo.pd.txt", stringsAsFactors = FALSE, header = T)
 ````
 
-Conduct Distributed Linked Component Analysis
+Conduct Two-stage linked component analysis
 
 ```R
 library(PJD)
