@@ -1,8 +1,8 @@
-# PJD: R package for Joint and Pairwise Decomposition
+# PJD: R package for Partial and Joint Decomposition
 
 ## Overview:
 
-Partial and Joint Decomposiiton (PJD) is a R package for visualizing biologically structured gene expression matrix environment based on low rank models.
+Partial and Joint Decomposiiton (PJD) is a R package for visualizing biologically structured gene expression matrix environment based on low rank models. Currently, it provides user 4  different styles of decomposition: (1) Separately, (2) Concatenately, (3) Jointly, (4) Statistically.
 
 To install this package in R, run the following commands:
 
@@ -11,9 +11,11 @@ library(devtools)
 install_github("CHuanSite/PJD")
 ```
 
-This package implements two categories of algorithms to decompose multiple datasets, concatenate and joint. For each category, there are three available algorithms: Principal Component Analysis (PCA), Independent Component Analysis (ICA) and Nonnegative Matrix Factorization (NMF). For each method, the algorithm takes three arguments, `dataset`, `group` and `comp_num`, specifying which datasets to be used, what is the structure among the datasets and what's the dimension for each component.
+This package implements four categories of algorithms to decompose multiple datasets, (1) Separately, (2) Concatenately, (3) Jointly, (4) Statistically. 
 
-In addition to these two categories, two more algorithms is proposed, which are sequential algorithm, `linkedPCA` and `seqPCA`.
+For the first three categories, there are three available algorithms: Principal Component Analysis (PCA), Independent Component Analysis (ICA) and Nonnegative Matrix Factorization (NMF). For each method, the algorithm takes three arguments, `dataset`, `group` and `comp_num`, specifying which datasets to be used, what is the structure among the datasets and what's the dimension for each component.
+
+For the last category, there is one algorithm, called two-staged linked component analysis, which is a PCA based statistical model.
 
 ## Example usage:
 
@@ -29,6 +31,9 @@ dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 comp_num = c(2,2,2,2,2,2,2,2,2)
 
+## Separate PCA, ICA, NMF
+
+
 ## Concatenated PCA, ICA, NMF
 concatPCA_res = concatPCA(dataset, group, comp_num)
 concatICA_res = concatICA(dataset, group, comp_num)
@@ -39,8 +44,8 @@ jointPCA_res = jointPCA(dataset, group, comp_num)
 jointICA_res = jointICA(dataset, group, comp_num)
 jointNMF_res = jointNMF(dataset, group, comp_num)
 
-## seqPCA
-seqPCA_res = seqPCA(dataset, group, comp_num)
+## twoStageLCA
+twoStageLCA_res = twoStageLCA(dataset, group, comp_num)
 ```
 
 To access the component
