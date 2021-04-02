@@ -1,6 +1,6 @@
-#' Sequential Decomposition with PCA and automatic rank selection
+#' Two-staged LCA and automatic rank selection
 #'
-#' Sequential decomposition of several matrices with PCA, the rank selection procedure is automatic based on BEMA
+#' Two-staged decomposition of several matrices with LCA, the rank selection procedure is automatic based on BEMA
 #'
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
@@ -12,7 +12,7 @@
 #'
 #' @return A list contains the component and the score of each dataset on every component after seqPCA algorithm
 #'
-#' @keywords sequential, rank, PCA
+#' @keywords two-staged, rank, LCA
 #'
 #' @examples
 #' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
@@ -21,11 +21,11 @@
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' group = list(c(1, 2, 3, 4), c(1, 2), c(3, 4), c(1, 3), c(2, 4), c(1), c(2), c(3), c(4))
 #' threshold = c(3, 1.5, 1.5, 1.5, 1.5, 0.5, 0.5, 0.5, 0.5)
-#' res_seqPCA = seqPCA.rank(dataset, group, threshold = threshold)
+#' res_twoStageLCA.rank = twoStageLCA.rank(dataset, group, threshold = threshold)
 #'
 #' @export
 
-seqPCA.rank <- function(dataset, group, total_number = NULL, threshold, backup = 0){
+twoStageLCA.rank <- function(dataset, group, total_number = NULL, threshold, backup = 0){
 
     ## Parameters to be initialized
     N = length(dataset)

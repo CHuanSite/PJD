@@ -1,6 +1,6 @@
-#' Sequential Decomposition with PCA
+#' Two-staged Linked Component Analysis
 #'
-#' Sequential decomposition of several matrices with PCA
+#' Two-staged Linked Component Analysis
 #'
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
@@ -9,9 +9,9 @@
 #'
 #' @importFrom RSpectra svds
 #'
-#' @return A list contains the component and the score of each dataset on every component after seqPCA algorithm
+#' @return A list contains the component and the score of each dataset on every component after 2sLCA algorithm
 #'
-#' @keywords sequential, PCA
+#' @keywords two-staged, LCA
 #'
 #' @examples
 #' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
@@ -20,12 +20,12 @@
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' group = list(c(1, 2, 3, 4), c(1, 2), c(3, 4), c(1, 3), c(2, 4), c(1), c(2), c(3), c(4))
 #' comp_num = c(2, 2, 2, 2, 2, 2, 2, 2, 2)
-#' res_seqPCA = seqPCA(dataset, group, comp_num)
+#' res_twoStageLCA = twoStageLCA(dataset, group, comp_num)
 #'
 #' @export
 
 
-seqPCA <- function(dataset, group, comp_num, backup = 0){
+twoStageLCA <- function(dataset, group, comp_num, backup = 0){
 
     ## Parameters to be initialized
     N = length(dataset)
