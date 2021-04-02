@@ -16,4 +16,4 @@ Description: This is a R Package for Visualizing Biologically StructuredGene Exp
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
