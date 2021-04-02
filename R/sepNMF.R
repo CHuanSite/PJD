@@ -4,6 +4,7 @@
 #'
 #' @param dataset A dataframe/matrix to be decomposed
 #' @param comp_num Number of NMFs to be extracted
+#' @param perturbation A small perturbation to ensure nmf works well
 #'
 #' @importFrom NMF nmf
 #'
@@ -18,8 +19,8 @@
 #'
 #' @export
 
-sepNMF <- function(dataset, comp_num, pertubation = 0.0001){
-    nmf_temp = nmf(dataset + pertubation, comp_num)
+sepNMF <- function(dataset, comp_num, perturbation = 0.0001){
+    nmf_temp = nmf(dataset + perturbation, comp_num)
     component = nmf_temp@fit@W
     score = nmf_temp@fit@H
 

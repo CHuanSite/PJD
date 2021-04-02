@@ -5,7 +5,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
-#' @param pertubation the pertubation of the 0 element in the analysis
+#' @param perturbation the perturbation of the 0 element in the analysis
 #'
 #' @importFrom NMF nmf
 #'
@@ -24,7 +24,7 @@
 #'
 #' @export
 
-concatNMF <- function(dataset, group, comp_num, pertubation = 0.0001){
+concatNMF <- function(dataset, group, comp_num, perturbation = 0.0001){
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)
@@ -55,7 +55,7 @@ concatNMF <- function(dataset, group, comp_num, pertubation = 0.0001){
             temp_dat = cbind(temp_dat, dataset[[j]])
             temp_sample_n = c(temp_sample_n, ncol(dataset[[j]]))
         }
-        nmf_temp = nmf(temp_dat + pertubation, comp_num[i])
+        nmf_temp = nmf(temp_dat + perturbation, comp_num[i])
         list_component[[i]] = nmf_temp@fit@W
         for(j in 1 : length(group[[i]])){
             list_score[[group[[i]][j]]][[i]] = nmf_temp@fit@H[, ifelse(j == 1, 1, sum(temp_sample_n[1 : (j - 1)]) + 1) : sum(temp_sample_n[1 : j])]

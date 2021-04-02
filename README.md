@@ -58,7 +58,7 @@ To access the score
 pairPCA_res$score_list
 ```
 
-## sc-RNAseq Example
+## Single-Cell RNAseq Example
 
 First, install the 'googleDrive' package
 
