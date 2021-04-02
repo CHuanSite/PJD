@@ -2,7 +2,7 @@
 
 ## Overview:
 
-Pairwise and Joint Decomposiiton (PJD) is a R package for visualizing biologically structured gene expression matrix environment based on low rank models.
+Partial and Joint Decomposiiton (PJD) is a R package for visualizing biologically structured gene expression matrix environment based on low rank models.
 
 To install this package in R, run the following commands:
 
