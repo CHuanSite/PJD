@@ -29,3 +29,5 @@ A list of data sets, after alignment
 \description{
 A wrapper function to align multiple datasets from different species
 }
+\keyword{PJD}
+\keyword{Wrapper,}

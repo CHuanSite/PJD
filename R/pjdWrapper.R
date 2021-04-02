@@ -8,14 +8,16 @@
 #' @param geneType.out Type of genes
 #' @param species.out Kind of species output
 #'
-#' @importFrom biomaRt
-#' @importFrom dplyr
+#' @import biomaRt
+#' @importFrom dplyr inner_join
 #'
 #' @return A list of data sets, after alignment
 #'
+#' @keywords Wrapper, PJD
+#'
 #' @export
 
-pjd_wrap=function(data.list, species.vector, geneType.vector, geneType.out="symbol", species.out){
+pjd_wrap <- function(data.list, species.vector, geneType.vector, geneType.out="symbol", species.out){
     N = length(data.list) #number of datasets
 
     if(N != length(species.vector)){
@@ -41,7 +43,7 @@ pjd_wrap=function(data.list, species.vector, geneType.vector, geneType.out="symb
 
         genes = rownames(data.list[[i]])
 
-        genes.tbl = getMatch(genes,inSpecies=species.1, inType=geneType.vector[i], newSpecies = species.out)
+        genes.tbl = getMatch(genes, inSpecies=species.1, inType=geneType.vector[i], newSpecies = species.out)
         genes.tbl = na.omit(genes.tbl)
 
         genes.tbl$ORIGid = genes.tbl[, "genes"]
@@ -65,7 +67,7 @@ pjd_wrap=function(data.list, species.vector, geneType.vector, geneType.out="symb
 
     if(N >= 3){
         for(i in 3 : N){
-            genes.tbl = inner_join(genes.tbl,genes.tbl.list[[i]], by = 'genes', na_matches = "never")#geneType.out
+            genes.tbl = inner_join(genes.tbl, genes.tbl.list[[i]], by = 'genes', na_matches = "never")#geneType.out
         }
     }
 
