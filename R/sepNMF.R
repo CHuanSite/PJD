@@ -13,7 +13,7 @@
 #' @keywords separate analysis, NMF
 #'
 #' @examples
-#' dataset = matrix(runif(5000, 1, 2), nrow = 100, ncol = 50)
+#' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' comp_num = 2
 #' res_sepNMF = sepNMF(dataset, comp_num)
 #'
@@ -26,7 +26,7 @@ sepNMF <- function(dataset, comp_num, perturbation = 0.0001){
     list_score = list()
 
     for(i in 1 : N){
-        nmf_temp = nmf(dataset + perturbation, comp_num)
+        nmf_temp = nmf(dataset[[i]] + perturbation, comp_num[i])
         component = nmf_temp@fit@W
         score = nmf_temp@fit@H
         list_component[[i]] = component

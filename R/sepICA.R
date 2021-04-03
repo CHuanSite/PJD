@@ -13,7 +13,7 @@
 #' @keywords separate analysis, ICA
 #'
 #' @examples
-#' dataset = matrix(runif(5000, 1, 2), nrow = 100, ncol = 50)
+#' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' comp_num = 2
 #' res_sepICA = sepICA(dataset, comp_num)
 #'
@@ -26,7 +26,7 @@ sepICA <- function(dataset, comp_num){
     list_score = list()
 
     for(i in 1 : N){
-        ica_temp = fastICA(dataset, comp_num)
+        ica_temp = fastICA(dataset[[i]], comp_num[i])
         component = ica_temp$S
         score = ica_temp$A
         list_component[[i]] = component

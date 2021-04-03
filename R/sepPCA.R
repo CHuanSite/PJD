@@ -13,7 +13,7 @@
 #' @keywords separate analysis, PCA
 #'
 #' @examples
-#' dataset = matrix(runif(5000, 1, 2), nrow = 100, ncol = 50)
+#' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' comp_num = 2
 #' res_sepPCA = sepPCA(dataset, comp_num)
 #'
@@ -26,7 +26,7 @@ sepPCA <- function(dataset, comp_num){
     list_score = list()
 
     for(i in 1 : N){
-        svd_temp = svds(dataset[[1]], comp_num[1])
+        svd_temp = svds(dataset[[i]], comp_num[i])
         component = svd_temp$u
         score = diag(svd_temp$d) %*% t(svd_temp$v)
         list_component[[i]] = component
