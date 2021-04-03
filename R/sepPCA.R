@@ -20,9 +20,18 @@
 #' @export
 
 sepPCA <- function(dataset, comp_num){
-    svd_temp = svds(dataset, comp_num)
-    component = svd_temp$u
-    score = diag(svd_temp$d) %*% t(svd_temp$v)
+    N = length(dataset)
 
-    return(list(component = component, score = score))
+    list_component = list()
+    list_score = list()
+
+    for(i in 1 : N){
+        svd_temp = svds(dataset[[1]], comp_num[1])
+        component = svd_temp$u
+        score = diag(svd_temp$d) %*% t(svd_temp$v)
+        list_component[[i]] = component
+        list_score[[i]] = score
+    }
+
+    return(list(linked_component_list = list_component, score_list = list_score))
 }

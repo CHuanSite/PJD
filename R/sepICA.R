@@ -20,9 +20,18 @@
 #' @export
 
 sepICA <- function(dataset, comp_num){
-    ica_temp = fastICA(dataset, comp_num)
-    component = ica_temp$S
-    score = ica_temp$A
+    N = length(dataset)
 
-    return(list(component = component, score = score))
+    list_component = list()
+    list_score = list()
+
+    for(i in 1 : N){
+        ica_temp = fastICA(dataset, comp_num)
+        component = ica_temp$S
+        score = ica_temp$A
+        list_component[[i]] = component
+        list_score[[i]] = score
+    }
+
+    return(list(linked_component_list = list_component, score_list = list_score))
 }

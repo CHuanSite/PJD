@@ -32,7 +32,9 @@ group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 comp_num = c(2,2,2,2,2,2,2,2,2)
 
 ## Separate PCA, ICA, NMF
-
+sepPCA_res = sepPCA(dataset, comp_num)
+sepICA_res = sepICA(dataset, comp_num)
+sepNMF_res = sepNMF(dataset, comp_num)
 
 ## Concatenated PCA, ICA, NMF
 concatPCA_res = concatPCA(dataset, group, comp_num)
@@ -115,7 +117,7 @@ group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 comp_num = c(2,2,2,2,2,2,2,2,2)
 
 ## Output result
-seqPCA_res = seqPCA(dataset, group, comp_num)
+twoStageLCA_res = twoStageLCA(dataset, group, comp_num)
 ```
 Visualize the result
 
@@ -123,28 +125,28 @@ Visualize the result
 par(mfrow = c(2,2))
 
 ## common component
-plot(t(seqPCA_res$score_list[[1]][[1]]), col = inVitro_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
-plot(t(seqPCA_res$score_list[[2]][[1]]), col = inVitro_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
-plot(t(seqPCA_res$score_list[[3]][[1]]), col = inVivo_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
-plot(t(seqPCA_res$score_list[[4]][[1]]), col = inVivo_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[1]][[1]]), col = inVitro_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[2]][[1]]), col = inVitro_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[3]][[1]]), col = inVivo_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[4]][[1]]), col = inVivo_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
 
 
 par(mfrow = c(1,2))
 ## in vitro component
-plot(t(seqPCA_res$score_list[[1]][[2]]), col = inVitro_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
-plot(t(seqPCA_res$score_list[[2]][[2]]), col = inVitro_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[1]][[2]]), col = inVitro_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[2]][[2]]), col = inVitro_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
 
 ## in vivo component
-plot(t(seqPCA_res$score_list[[3]][[3]]), col = inVivo_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
-plot(t(seqPCA_res$score_list[[4]][[3]]), col = inVivo_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[3]][[3]]), col = inVivo_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[4]][[3]]), col = inVivo_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
 
 ## bulk component
-plot(t(seqPCA_res$score_list[[1]][[4]]), col = inVitro_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
-plot(t(seqPCA_res$score_list[[3]][[4]]), col = inVivo_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[1]][[4]]), col = inVitro_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[3]][[4]]), col = inVivo_bulk_exp$color, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_bulk", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
 
 ## sc component
-plot(t(seqPCA_res$score_list[[2]][[5]]), col = inVitro_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
-plot(t(seqPCA_res$score_list[[4]][[5]]), col = inVivo_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[2]][[5]]), col = inVitro_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVitro_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
+plot(t(twoStageLCA_res$score_list[[4]][[5]]), col = inVivo_sc_exp$COLORby.DCX, pch = 16, xlab = "PC1", ylab = "PC2", main = "common: inVivo_sc", cex = 2, cex.axis = 1, cex.lab = 1, cex.main = 1)
 ```
 
 ## Source

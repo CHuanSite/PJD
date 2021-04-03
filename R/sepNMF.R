@@ -20,9 +20,18 @@
 #' @export
 
 sepNMF <- function(dataset, comp_num, perturbation = 0.0001){
-    nmf_temp = nmf(dataset + perturbation, comp_num)
-    component = nmf_temp@fit@W
-    score = nmf_temp@fit@H
+    N = length(dataset)
 
-    return(list(component = component, score = score))
+    list_component = list()
+    list_score = list()
+
+    for(i in 1 : N){
+        nmf_temp = nmf(dataset + perturbation, comp_num)
+        component = nmf_temp@fit@W
+        score = nmf_temp@fit@H
+        list_component[[i]] = component
+        list_score[[i]] = score
+    }
+
+    return(list(linked_component_list = list_component, score_list = list_score))
 }
