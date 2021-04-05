@@ -15,7 +15,18 @@
 #'
 #' @keywords Wrapper, PJD
 #'
+#' @examples
+#'
+#' data(etx)
+#'
+#' PJD_example = pjd_wrap(data.list = example_data,
+#' species.vector = c("human", "mouse"),
+#' geneType.vector = c("symbol", "symbol"),
+#' geneType.out = "symbol",
+#' species.out = "human")
+#'
 #' @export
+
 
 pjd_wrap <- function(data.list, species.vector, geneType.vector, geneType.out="symbol", species.out){
     N = length(data.list) #number of datasets
