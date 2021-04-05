@@ -5,7 +5,6 @@
 #' @param dataset A dataframe/matrix to be decomposed
 #' @param comp_num Number of ICs to be extracted
 #'
-#'
 #' @importFrom fastICA fastICA
 #'
 #' @return A list of scores and component
