@@ -20,7 +20,7 @@ A list of scores and component
 Apply NMF (Nonnegative Matrix Factorization) to a single data set
 }
 \examples{
-dataset = matrix(runif(5000, 1, 2), nrow = 100, ncol = 50)
+dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 comp_num = 2
 res_sepNMF = sepNMF(dataset, comp_num)
 
