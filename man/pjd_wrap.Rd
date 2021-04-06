@@ -29,5 +29,16 @@ A list of data sets, after alignment
 \description{
 A wrapper function to align multiple datasets from different species
 }
+\examples{
+
+data(mtx)
+
+PJD_example = pjd_wrap(data.list = mtx,
+species.vector = c("human", "mouse"),
+geneType.vector = c("symbol", "symbol"),
+geneType.out = "symbol",
+species.out = "human")
+
+}
 \keyword{PJD}
 \keyword{Wrapper,}

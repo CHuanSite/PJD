@@ -12,6 +12,11 @@
 #' @keywords datasets
 #'
 #' @examples
+#'
 #' data(mtx)
 #' head(mtx$HS.Nico)
 #' head(mtx$Mm.Nico)
+#'
+#'
+
+"mtx"

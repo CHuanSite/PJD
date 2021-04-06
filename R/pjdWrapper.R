@@ -17,9 +17,9 @@
 #'
 #' @examples
 #'
-#' data(etx)
+#' data(mtx)
 #'
-#' PJD_example = pjd_wrap(data.list = example_data,
+#' PJD_example = pjd_wrap(data.list = mtx,
 #' species.vector = c("human", "mouse"),
 #' geneType.vector = c("symbol", "symbol"),
 #' geneType.out = "symbol",
