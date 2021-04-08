@@ -16,7 +16,10 @@ A list of matrix transformed from the list of data frames
 Function to transform a data frame into a matrix
 }
 \examples{
-dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50), matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+dataset = list(
+matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+matrix(runif(5000, 1, 2), nrow = 100, ncol = 50)
+)
 frameToMatrix(dataset)
 
 }

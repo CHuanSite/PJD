@@ -27,6 +27,7 @@
 
 twoStageLCA.rank <- function(dataset, group, total_number = NULL, threshold, backup = 0){
     dataset = frameToMatrix(dataset)
+    dataset = normalizeData(dataset)
 
     ## Parameters to be initialized
     N = length(dataset)

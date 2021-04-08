@@ -9,7 +9,10 @@
 #' @keywords dataframe, matrix
 #'
 #' @examples
-#' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50), matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+#' dataset = list(
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+#' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50)
+#' )
 #' frameToMatrix(dataset)
 #'
 #' @export

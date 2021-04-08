@@ -20,6 +20,7 @@
 
 sepICA <- function(dataset, comp_num){
     dataset = frameToMatrix(dataset)
+    dataset = normalizeData(dataset)
 
     N = length(dataset)
 

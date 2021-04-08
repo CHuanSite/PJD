@@ -25,6 +25,7 @@
 
 concatICA <- function(dataset, group, comp_num){
     dataset = frameToMatrix(dataset)
+    dataset = normalizeData(dataset)
 
     ## Parameters to be initialized
     N = length(dataset)
