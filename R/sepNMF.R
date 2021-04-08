@@ -20,6 +20,8 @@
 #' @export
 
 sepNMF <- function(dataset, comp_num, perturbation = 0.0001){
+    dataset = frameToMatrix(dataset)
+
     N = length(dataset)
 
     list_component = list()

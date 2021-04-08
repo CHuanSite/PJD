@@ -25,6 +25,8 @@
 #' @export
 
 concatNMF <- function(dataset, group, comp_num, perturbation = 0.0001){
+    dataset = frameToMatrix(dataset)
+
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)

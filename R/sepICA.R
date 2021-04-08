@@ -19,6 +19,8 @@
 #' @export
 
 sepICA <- function(dataset, comp_num){
+    dataset = frameToMatrix(dataset)
+
     N = length(dataset)
 
     list_component = list()

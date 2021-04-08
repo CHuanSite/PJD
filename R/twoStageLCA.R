@@ -26,6 +26,7 @@
 
 
 twoStageLCA <- function(dataset, group, comp_num, backup = 0){
+    dataset = frameToMatrix(dataset)
 
     ## Parameters to be initialized
     N = length(dataset)

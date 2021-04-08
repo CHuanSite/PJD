@@ -24,6 +24,8 @@
 #' @export
 
 concatICA <- function(dataset, group, comp_num){
+    dataset = frameToMatrix(dataset)
+
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)

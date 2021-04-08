@@ -25,6 +25,8 @@
 #' @export
 
 jointNMF <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
+    dataset = frameToMatrix(dataset)
+
     ## Initialize values for the algorithm
     N = length(dataset)
     K = length(group)

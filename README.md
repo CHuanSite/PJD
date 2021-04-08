@@ -52,12 +52,12 @@ twoStageLCA_res = twoStageLCA(dataset, group, comp_num)
 
 To access the component
 ```R
-pairPCA_res$linked_component_list
+concatPCA_res$linked_component_list
 ```
 
 To access the score
 ```R
-pairPCA_res$score_list
+concatPCA_res$score_list
 ```
 
 ## Single-Cell RNAseq Example
