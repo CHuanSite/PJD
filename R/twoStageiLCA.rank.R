@@ -106,10 +106,12 @@ twoStageiLCA.rank <- function(dataset, group, total_number = NULL, threshold, ba
     }
 
     ## Conduct ICA on the extracted Scores
-    for(j in 1 : length(list_score)){
-        for(i in 1 : length(list_score[[j]])){
-            temp_ica_res = fastICA(t(list_score[[j]][[i]]))
-            list_score[[j]][[i]] = t(temp_ica_res$S)
+    for(i in 1 : K){
+        for(j in 1 : N){
+            if(j %in% group[[i]] & nrow(list_score[[j]][[i]]) >= 2){
+                temp_ica_res = fastICA(t(list_score[[j]][[i]]), n.comp = nrow(list_score[[j]][[i]]))
+                list_score[[j]][[i]] = t(temp_ica_res$S)
+            }
         }
     }
 
