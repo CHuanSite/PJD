@@ -47,5 +47,6 @@ sepICA <- function(dataset, comp_num){
     list_score = scoreNameAssignSep(list_score, dataset_name)
     list_score = sampleNameAssignSep(list_score, sample_name)
 
+
     return(list(linked_component_list = list_component, score_list = list_score))
 }

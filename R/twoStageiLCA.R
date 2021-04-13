@@ -25,7 +25,6 @@
 #'
 #' @export
 
-
 twoStageiLCA <- function(dataset, group, comp_num, backup = 0){
 
     ## Obtain names for dataset, gene and samples
@@ -129,7 +128,7 @@ twoStageiLCA <- function(dataset, group, comp_num, backup = 0){
     list_component = geneNameAssign(list_component, gene_name)
     list_score = scoreNameAssign(list_score, dataset_name, group_name)
     list_score = sampleNameAssign(list_score, sample_name)
-
+    list_score = filterNAValue(list_score, dataset, group)
 
     return(list(linked_component_list = list_component, score_list = list_score))
 }

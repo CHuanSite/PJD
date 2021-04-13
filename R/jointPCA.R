@@ -33,8 +33,11 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     sample_name = sampleNameExtractor(dataset)
     group_name = groupNameExtractor(group)
 
+    ## Preprocess datasets
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
+    dataset = balanceData(dataset)
+
 
     ## Parameters to be initialized
     N = length(dataset)
@@ -116,6 +119,8 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     list_component = geneNameAssign(list_component, gene_name)
     list_score = scoreNameAssign(list_score, dataset_name, group_name)
     list_score = sampleNameAssign(list_score, sample_name)
+    list_score = filterNAValue(list_score, dataset, group)
+    list_score = rebalanceData(list_score, group, dataset)
 
     return(list(linked_component_list = list_component, score_list = list_score, loss = loss))
 }

@@ -36,6 +36,8 @@ jointICA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
 
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
+    dataset = balanceData(dataset)
+
 
     ## Parameters to be initialized
     N = length(dataset)
@@ -46,6 +48,13 @@ jointICA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
 
     ## PCA preprocessing on the data
     PCA_preprocess = jointPCA(dataset, group, comp_num, max_ite, max_err)
+    for(i in 1 : N){
+        for(j in 1 : K){
+            if(!(i %in% group[[j]])){
+                PCA_preprocess$score_list[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = N_dataset[i])
+            }
+        }
+    }
 
     ## Output the component and scores
     list_component = list()
@@ -81,6 +90,8 @@ jointICA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     list_component = geneNameAssign(list_component, gene_name)
     list_score = scoreNameAssign(list_score, dataset_name, group_name)
     list_score = sampleNameAssign(list_score, sample_name)
+    list_score = filterNAValue(list_score, dataset, group)
+    list_score = rebalanceData(list_score, group, dataset)
 
     return(list(linked_component_list = list_component, score_list = list_score))
 }
