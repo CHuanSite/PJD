@@ -140,9 +140,6 @@ geneNameAssign <- function(linked_component_list, gene_name){
     return(linked_component_list)
 }
 
-
-
-
 #' Sample Name Assignment for Seperate Analysis
 #'
 #' Assign sample names to each dataset in the list of data sets,
