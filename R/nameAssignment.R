@@ -21,6 +21,7 @@
 scoreNameAssignSep <- function(score_list, dataset_name){
     for(i in 1 : length(score_list)){
         names(score_list)[i] = dataset_name[i]
+        rownames(score_list[[i]]) = sapply(1 : nrow(score_list[[i]]), FUN = function(x){paste0(dataset_name[i], "_", "subcomp.", x)} )
     }
     return(score_list)
 }
@@ -52,6 +53,7 @@ scoreNameAssign <- function(score_list, dataset_name, group_name){
         names(score_list)[i] = dataset_name[i]
         for(j in 1 : length(score_list[[i]])){
             names(score_list[[i]])[j] = group_name[j]
+            rownames(score_list[[i]][[j]]) = sapply(1 : nrow(score_list[[i]][[j]]), FUN = function(x){paste0(group_name[i], "_", "subcomp.", x)} )
         }
     }
     return(score_list)

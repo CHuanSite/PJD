@@ -132,6 +132,5 @@ twoStageiLCA.rank <- function(dataset, group, total_number = NULL, threshold, ba
     list_score = scoreNameAssign(list_score, dataset_name, group_name)
     list_score = sampleNameAssign(list_score, sample_name)
 
-
     return(list(linked_component_list = list_component, score_list = list_score))
 }
