@@ -19,6 +19,12 @@
 #' @export
 
 sepICA <- function(dataset, comp_num){
+
+    ## Obtain names for dataset, gene and samples
+    dataset_name = datasetNameExtractor(dataset)
+    gene_name = geneNameExtractor(dataset)
+    sample_name = sampleNameExtractor(dataset)
+
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
 
@@ -34,6 +40,12 @@ sepICA <- function(dataset, comp_num){
         list_component[[i]] = component
         list_score[[i]] = score
     }
+
+    ## Assign name for components
+    list_component = compNameAssignSep(list_component, dataset_name)
+    list_component = geneNameAssign(list_component, gene_name)
+    list_score = scoreNameAssignSep(list_score, dataset_name)
+    list_score = sampleNameAssignSep(list_score, sample_name)
 
     return(list(linked_component_list = list_component, score_list = list_score))
 }

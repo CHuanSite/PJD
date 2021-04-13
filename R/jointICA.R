@@ -26,6 +26,14 @@
 #' @export
 
 jointICA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
+
+    ## Obtain names for dataset, gene and samples
+    dataset_name = datasetNameExtractor(dataset)
+    gene_name = geneNameExtractor(dataset)
+    sample_name = sampleNameExtractor(dataset)
+    group_name = groupNameExtractor(group)
+
+
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
 
@@ -68,5 +76,16 @@ jointICA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
         }
     }
 
+    ## Assign name for components
+    list_component = compNameAssign(list_component, group_name)
+    list_component = geneNameAssign(list_component, gene_name)
+    list_score = scoreNameAssign(list_score, dataset_name, group_name)
+    list_score = sampleNameAssign(list_score, sample_name)
+
     return(list(linked_component_list = list_component, score_list = list_score))
 }
+
+
+
+
+

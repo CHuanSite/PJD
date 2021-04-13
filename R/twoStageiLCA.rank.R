@@ -1,6 +1,10 @@
-#' Two-staged Independent  LCA and automatic rank selection
+#' Two-staged Independent LCA and automatic rank selection
 #'
-#' Two-staged decomposition of several matrices with Independent LCA, the rank selection procedure is automatic based on BEMA
+#' Two-staged decomposition of several matrices with Independent LCA,
+#' twoStageLCA is first performed on the data,
+#' the rank selection procedure is automatic based on BEMA.
+#' Then, fastICA is implemented on the score to extract the independent
+#' components.
 #'
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
@@ -27,6 +31,13 @@
 #' @export
 
 twoStageiLCA.rank <- function(dataset, group, total_number = NULL, threshold, backup = 0){
+
+    ## Obtain names for dataset, gene and samples
+    dataset_name = datasetNameExtractor(dataset)
+    gene_name = geneNameExtractor(dataset)
+    sample_name = sampleNameExtractor(dataset)
+    group_name = groupNameExtractor(group)
+
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
 
@@ -88,7 +99,7 @@ twoStageiLCA.rank <- function(dataset, group, total_number = NULL, threshold, ba
 
         index = which(temp_comp_svd$d^2 > threshold[i])
         if(length(index) > 0){
-            list_component[[i]] = temp_comp_svd$u[, 1 : length(index)]
+            list_component[[i]] = matrix(temp_comp_svd$u[, 1 : length(index)], nrow = p)
             for(j in 1 : N){
                 data_comp_total[[j]] = data_comp_total[[j]] - list_component[[i]] %*% (t(list_component[[i]]) %*% data_comp_total[[j]])
                 # data_comp_total[[j]] = svd(data_comp_total[[j]])$u[, 1 : (ncol(data_comp_total[[j]]) - comp_num[i])]
@@ -114,6 +125,12 @@ twoStageiLCA.rank <- function(dataset, group, total_number = NULL, threshold, ba
             }
         }
     }
+
+    ## Assign name for components
+    list_component = compNameAssign(list_component, group_name)
+    list_component = geneNameAssign(list_component, gene_name)
+    list_score = scoreNameAssign(list_score, dataset_name, group_name)
+    list_score = sampleNameAssign(list_score, sample_name)
 
 
     return(list(linked_component_list = list_component, score_list = list_score))

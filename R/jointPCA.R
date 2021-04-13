@@ -26,6 +26,13 @@
 #' @export
 
 jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
+
+    ## Obtain names for dataset, gene and samples
+    dataset_name = datasetNameExtractor(dataset)
+    gene_name = geneNameExtractor(dataset)
+    sample_name = sampleNameExtractor(dataset)
+    group_name = groupNameExtractor(group)
+
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
 
@@ -43,16 +50,16 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     }
 
     ## List to store the random scores and initialize the scores
-    score_list = list()
+    list_score = list()
     for(i in 1 : N){
-        score_list[[i]] = list()
+        list_score[[i]] = list()
     }
     for(i in 1 : N){
         for(j in 1 : K){
             if(i %in% group[[j]]){
-                score_list[[i]][[j]] = matrix(runif(comp_num[j] * N_dataset[i]), nrow = comp_num[j])
+                list_score[[i]][[j]] = matrix(runif(comp_num[j] * N_dataset[i]), nrow = comp_num[j])
             }else{
-                score_list[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = N_dataset[i])
+                list_score[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = N_dataset[i])
             }
         }
     }
@@ -66,17 +73,17 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
         for(i in 1 : N){
             temp_score = c()
             for(j in 1 : K){
-                temp_score = rbind(temp_score, score_list[[i]][[j]])
+                temp_score = rbind(temp_score, list_score[[i]][[j]])
             }
             matrix_score = cbind(matrix_score, temp_score)
         }
 
         ## Apply Procrustes projection to obtain the linkedin component
         linked_component = Procrustes(combine_data, matrix_score)
-        linked_component_list = list()
+        list_component = list()
         index = 1
         for(j in 1 : K){
-            linked_component_list[[j]] = linked_component[, index : (index + comp_num[j] - 1)]
+            list_component[[j]] = linked_component[, index : (index + comp_num[j] - 1)]
             index = index + comp_num[j]
         }
 
@@ -84,22 +91,33 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
         for(i in 1 : N){
             for(j in 1 : K){
                 if(i %in% group[[j]]){
-                    score_list[[i]][[j]] = t(linked_component_list[[j]]) %*% dataset[[i]]
+                    list_score[[i]][[j]] = t(list_component[[j]]) %*% dataset[[i]]
                 }else{
-                    score_list[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = N_dataset[i])
+                    list_score[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = N_dataset[i])
                 }
             }
         }
         loss_current = sum((combine_data - linked_component %*% matrix_score)^2)
         if(abs(loss[length(loss)] - loss_current) < max_err){
-            return(list(linked_component_list = linked_component_list, score_list = score_list))
+            list_component = compNameAssign(list_component, group_name)
+            list_component = geneNameAssign(list_component, gene_name)
+            list_score = scoreNameAssign(list_score, dataset_name, group_name)
+            list_score = sampleNameAssign(list_score, sample_name)
+
+            return(list(linked_component_list = list_component, score_list = list_score))
         }
         loss = c(loss, loss_current)
         # print(t)
         # print(loss_current)
     }
 
-    return(list(linked_component_list = linked_component_list, score_list = score_list, loss = loss))
+    ## Assign name for components
+    list_component = compNameAssign(list_component, group_name)
+    list_component = geneNameAssign(list_component, gene_name)
+    list_score = scoreNameAssign(list_score, dataset_name, group_name)
+    list_score = sampleNameAssign(list_score, sample_name)
+
+    return(list(linked_component_list = list_component, score_list = list_score, loss = loss))
 }
 
 #' Procrustes Projection

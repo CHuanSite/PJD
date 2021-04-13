@@ -25,6 +25,13 @@
 #' @export
 
 concatNMF <- function(dataset, group, comp_num, perturbation = 0.0001){
+
+    ## Obtain names for dataset, gene and samples
+    dataset_name = datasetNameExtractor(dataset)
+    gene_name = geneNameExtractor(dataset)
+    sample_name = sampleNameExtractor(dataset)
+    group_name = groupNameExtractor(group)
+
     dataset = frameToMatrix(dataset)
 
     ## Parameters to be initialized
@@ -63,6 +70,12 @@ concatNMF <- function(dataset, group, comp_num, perturbation = 0.0001){
             list_score[[group[[i]][j]]][[i]] = nmf_temp@fit@H[, ifelse(j == 1, 1, sum(temp_sample_n[1 : (j - 1)]) + 1) : sum(temp_sample_n[1 : j])]
         }
     }
+
+    ## Assign name for components
+    list_component = compNameAssign(list_component, group_name)
+    list_component = geneNameAssign(list_component, gene_name)
+    list_score = scoreNameAssign(list_score, dataset_name, group_name)
+    list_score = sampleNameAssign(list_score, sample_name)
 
     return(list(linked_component_list = list_component, score_list = list_score))
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/twoStageiLCA.rank.R
 \name{twoStageiLCA.rank}
 \alias{twoStageiLCA.rank}
-\title{Two-staged Independent  LCA and automatic rank selection}
+\title{Two-staged Independent LCA and automatic rank selection}
 \usage{
 twoStageiLCA.rank(dataset, group, total_number = NULL, threshold, backup = 0)
 }
@@ -21,7 +21,11 @@ twoStageiLCA.rank(dataset, group, total_number = NULL, threshold, backup = 0)
 A list contains the component and the score of each dataset on every component after twoStageiLCA.rank algorithm
 }
 \description{
-Two-staged decomposition of several matrices with Independent LCA, the rank selection procedure is automatic based on BEMA
+Two-staged decomposition of several matrices with Independent LCA,
+twoStageLCA is first performed on the data,
+the rank selection procedure is automatic based on BEMA.
+Then, fastICA is implemented on the score to extract the independent
+components.
 }
 \examples{
 dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
