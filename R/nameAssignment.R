@@ -41,7 +41,7 @@ scoreNameAssignSep <- function(score_list, dataset_name){
 #' @keywords score, name
 #'
 #' @examples
-#' score_list = list(list(c(1, 2, 3), c(4, 5, 6)), list(c(1, 2, 3), c(4, 5, 6)))
+#' score_list = list(list(matrix(c(1 : 4), nrow = 2), matrix(c(1 : 4), nrow = 2)), list(matrix(c(1 : 4), nrow = 2), matrix(c(1 : 4), nrow = 2)))
 #' dataset_name = c("dat1", "dat2")
 #' group_name = c("comp1", "comp2")
 #' scoreNameAssign(score_list, dataset_name, group_name)
@@ -53,12 +53,11 @@ scoreNameAssign <- function(score_list, dataset_name, group_name){
         names(score_list)[i] = dataset_name[i]
         for(j in 1 : length(score_list[[i]])){
             names(score_list[[i]])[j] = group_name[j]
-            rownames(score_list[[i]][[j]]) = sapply(1 : nrow(score_list[[i]][[j]]), FUN = function(x){paste0(group_name[i], "_", "subcomp.", x)} )
+            rownames(score_list[[i]][[j]]) = sapply(1 : nrow(score_list[[i]][[j]]), FUN = function(x){paste0(group_name[j], "_", "subcomp.", x)} )
         }
     }
     return(score_list)
 }
-
 
 #' Components Name Assignment for Seperate Analysis
 #'

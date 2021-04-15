@@ -34,7 +34,7 @@ sepICA <- function(dataset, comp_num){
     list_score = list()
 
     for(i in 1 : N){
-        ica_temp = fastICA(dataset[[i]], comp_num[i])
+        ica_temp = fastICA(dataset[[i]], comp_num[i], alg.typ = "deflation")
         component = ica_temp$S
         score = ica_temp$A
         list_component[[i]] = component

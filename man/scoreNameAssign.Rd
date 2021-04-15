@@ -22,7 +22,7 @@ the dataset_name is the output of the dataNameExtractor, the group_name
 is the output of the groupNameExtractor
 }
 \examples{
-score_list = list(list(c(1, 2, 3), c(4, 5, 6)), list(c(1, 2, 3), c(4, 5, 6)))
+score_list = list(list(matrix(c(1 : 4), nrow = 2), matrix(c(1 : 4), nrow = 2)), list(matrix(c(1 : 4), nrow = 2), matrix(c(1 : 4), nrow = 2)))
 dataset_name = c("dat1", "dat2")
 group_name = c("comp1", "comp2")
 scoreNameAssign(score_list, dataset_name, group_name)
