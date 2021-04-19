@@ -19,6 +19,7 @@
 #' @export
 
 sepICA <- function(dataset, comp_num){
+    sepPCA_res = sepPCA(dataset, comp_num)
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -34,9 +35,9 @@ sepICA <- function(dataset, comp_num){
     list_score = list()
 
     for(i in 1 : N){
-        ica_temp = fastICA(dataset[[i]], comp_num[i], alg.typ = "deflation")
-        component = ica_temp$S
-        score = ica_temp$A
+        ica_temp = fastICA(t(sepPCA_res$score_list[[i]]), comp_num[i])
+        component = sepPCA_res$linked_component_list[[i]] %*% t(ica_temp$A)
+        score = t(ica_temp$S)
         list_component[[i]] = component
         list_score[[i]] = score
     }
@@ -46,7 +47,6 @@ sepICA <- function(dataset, comp_num){
     list_component = geneNameAssign(list_component, gene_name)
     list_score = scoreNameAssignSep(list_score, dataset_name)
     list_score = sampleNameAssignSep(list_score, sample_name)
-
 
     return(list(linked_component_list = list_component, score_list = list_score))
 }

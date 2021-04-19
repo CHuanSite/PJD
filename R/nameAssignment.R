@@ -12,7 +12,7 @@
 #' @keywords score, name
 #'
 #' @examples
-#' score_list = list(c(1, 2, 3), c(4, 5, 6))
+#' score_list = list(matrix(c(1 : 4), nrow = 2), matrix(c(5 : 8), nrow = 2))
 #' dataset_name = c("x", "y")
 #' scoreNameAssignSep(score_list, dataset_name)
 #'
@@ -41,7 +41,9 @@ scoreNameAssignSep <- function(score_list, dataset_name){
 #' @keywords score, name
 #'
 #' @examples
-#' score_list = list(list(matrix(c(1 : 4), nrow = 2), matrix(c(1 : 4), nrow = 2)), list(matrix(c(1 : 4), nrow = 2), matrix(c(1 : 4), nrow = 2)))
+#' score_list = list(
+#' list(matrix(c(1 : 4), nrow = 2), matrix(c(1 : 4), nrow = 2)),
+#' list(matrix(c(1 : 4), nrow = 2), matrix(c(1 : 4), nrow = 2)))
 #' dataset_name = c("dat1", "dat2")
 #' group_name = c("comp1", "comp2")
 #' scoreNameAssign(score_list, dataset_name, group_name)

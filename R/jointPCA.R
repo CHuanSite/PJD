@@ -38,7 +38,6 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     dataset = normalizeData(dataset)
     dataset = balanceData(dataset)
 
-
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)

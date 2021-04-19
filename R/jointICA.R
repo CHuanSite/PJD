@@ -26,13 +26,13 @@
 #' @export
 
 jointICA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
+    jointPCA_res = jointPCA(dataset, group, comp_num, max_ite, max_err)
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
     gene_name = geneNameExtractor(dataset)
     sample_name = sampleNameExtractor(dataset)
     group_name = groupNameExtractor(group)
-
 
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
@@ -45,16 +45,6 @@ jointICA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     M = sum(comp_num)
     p = nrow(dataset[[1]])
     N_dataset = unlist(lapply(dataset, ncol))
-
-    ## PCA preprocessing on the data
-    PCA_preprocess = jointPCA(dataset, group, comp_num, max_ite, max_err)
-    for(i in 1 : N){
-        for(j in 1 : K){
-            if(!(i %in% group[[j]])){
-                PCA_preprocess$score_list[[i]][[j]] = matrix(0, nrow = comp_num[j], ncol = N_dataset[i])
-            }
-        }
-    }
 
     ## Output the component and scores
     list_component = list()
@@ -75,13 +65,13 @@ jointICA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
         dat_temp = c()
         n_sample_temp = c()
         for(j in group[[i]]){
-            dat_temp = cbind(dat_temp, PCA_preprocess$linked_component_list[[i]] %*% PCA_preprocess$score_list[[j]][[i]])
+            dat_temp = cbind(dat_temp, jointPCA_res$score_list[[j]][[i]] / sqrt(N_dataset[j]))
             n_sample_temp = c(n_sample_temp, N_dataset[j])
         }
-        ica_temp = fastICA(dat_temp, comp_num[i])
-        list_component[[i]] = ica_temp$S
+        ica_temp = fastICA(t(dat_temp), comp_num[i])
+        list_component[[i]] = jointPCA_res$linked_component_list[[i]] %*% t(ica_temp$A)
         for(j in 1 : length(group[[i]])){
-            list_score[[group[[i]][j]]][[i]] = ica_temp$A[, ifelse(j == 1, 1, sum(n_sample_temp[1 : (j - 1)]) + 1) : sum(n_sample_temp[1 : j])]
+            list_score[[group[[i]][j]]][[i]] = t(ica_temp$S)[, ifelse(j == 1, 1, sum(n_sample_temp[1 : (j - 1)]) + 1) : sum(n_sample_temp[1 : j])]
         }
     }
 

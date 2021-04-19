@@ -24,6 +24,7 @@
 #' @export
 
 concatICA <- function(dataset, group, comp_num){
+    concatPCA_out = concatPCA(dataset, group, comp_num)
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -31,11 +32,9 @@ concatICA <- function(dataset, group, comp_num){
     sample_name = sampleNameExtractor(dataset)
     group_name = groupNameExtractor(group)
 
-
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
     dataset = balanceData(dataset)
-
 
     ## Parameters to be initialized
     N = length(dataset)
@@ -63,13 +62,13 @@ concatICA <- function(dataset, group, comp_num){
         temp_dat = c()
         temp_sample_n = c()
         for(j in group[[i]]){
-            temp_dat = cbind(temp_dat, dataset[[j]])
+            temp_dat = cbind(temp_dat, concatPCA_out$score_list[[j]][[i]] / sqrt(ncol(dataset[[j]])))
             temp_sample_n = c(temp_sample_n, ncol(dataset[[j]]))
         }
-        ica_temp = fastICA(temp_dat, comp_num[i])
-        list_component[[i]] = ica_temp$S
+        ica_temp = fastICA(t(temp_dat), comp_num[i])
+        list_component[[i]] = concatPCA_out$linked_component_list[[i]] %*% t(ica_temp$A)
         for(j in 1 : length(group[[i]])){
-            list_score[[group[[i]][j]]][[i]] = ica_temp$A[, ifelse(j == 1, 1, sum(temp_sample_n[1 : (j - 1)]) + 1) : sum(temp_sample_n[1 : j])]
+            list_score[[group[[i]][j]]][[i]] = t(ica_temp$S)[, ifelse(j == 1, 1, sum(temp_sample_n[1 : (j - 1)]) + 1) : sum(temp_sample_n[1 : j])]
         }
     }
 
