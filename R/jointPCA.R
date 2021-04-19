@@ -109,8 +109,6 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
             return(list(linked_component_list = list_component, score_list = list_score))
         }
         loss = c(loss, loss_current)
-        # print(t)
-        # print(loss_current)
     }
 
     ## Assign name for components

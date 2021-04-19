@@ -26,7 +26,6 @@ sepNMF <- function(dataset, comp_num, perturbation = 0.0001){
     gene_name = geneNameExtractor(dataset)
     sample_name = sampleNameExtractor(dataset)
 
-
     dataset = frameToMatrix(dataset)
     N = length(dataset)
 
