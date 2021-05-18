@@ -6,6 +6,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #' @param max_ite The maximum number of iterations for the jointNMF algorithms to run, default value is set to 100
 #' @param max_err The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.0001
 #'
@@ -24,7 +25,7 @@
 #'
 #' @export
 
-jointNMF <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
+jointNMF <- function(dataset, group, comp_num, weighting = NULL, max_ite = 100, max_err = 0.0001){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -35,6 +36,8 @@ jointNMF <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     ## Preprocess Dataset
     dataset = frameToMatrix(dataset)
     dataset = balanceData(dataset)
+    dataset = weightData(dataset, weighting)
+
 
 
     ## Initialize values for the algorithm

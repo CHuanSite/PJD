@@ -5,6 +5,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #'
 #' @importFrom fastICA fastICA
 #'
@@ -23,7 +24,7 @@
 #'
 #' @export
 
-concatICA <- function(dataset, group, comp_num){
+concatICA <- function(dataset, group, comp_num, weighting = NULL){
     concatPCA_out = concatPCA(dataset, group, comp_num)
 
     ## Obtain names for dataset, gene and samples
@@ -35,6 +36,8 @@ concatICA <- function(dataset, group, comp_num){
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
     dataset = balanceData(dataset)
+    dataset = weightData(dataset, weighting)
+
 
     ## Parameters to be initialized
     N = length(dataset)

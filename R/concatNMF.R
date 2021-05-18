@@ -5,6 +5,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #' @param perturbation the perturbation of the 0 element in the analysis
 #'
 #' @importFrom NMF nmf
@@ -24,7 +25,7 @@
 #'
 #' @export
 
-concatNMF <- function(dataset, group, comp_num, perturbation = 0.0001){
+concatNMF <- function(dataset, group, comp_num, weighting = NULL, perturbation = 0.0001){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -34,6 +35,8 @@ concatNMF <- function(dataset, group, comp_num, perturbation = 0.0001){
 
     dataset = frameToMatrix(dataset)
     dataset = balanceData(dataset)
+    dataset = weightData(dataset, weighting)
+
 
 
     ## Parameters to be initialized

@@ -5,6 +5,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #'
 #' @importFrom RSpectra svds
 #'
@@ -23,7 +24,7 @@
 #'
 #' @export
 
-concatPCA <- function(dataset, group, comp_num){
+concatPCA <- function(dataset, group, comp_num, weighting = NULL){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -35,6 +36,8 @@ concatPCA <- function(dataset, group, comp_num){
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
     dataset = balanceData(dataset)
+    dataset = weightData(dataset, weighting)
+
 
     ## Parameters to be initialized
     N = length(dataset)

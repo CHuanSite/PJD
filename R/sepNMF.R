@@ -4,6 +4,7 @@
 #'
 #' @param dataset A dataframe/matrix to be decomposed
 #' @param comp_num Number of NMFs to be extracted
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #' @param perturbation A small perturbation to ensure nmf works well
 #'
 #' @importFrom NMF nmf
@@ -19,7 +20,7 @@
 #'
 #' @export
 
-sepNMF <- function(dataset, comp_num, perturbation = 0.0001){
+sepNMF <- function(dataset, comp_num, weighting = NULL, perturbation = 0.0001){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -27,6 +28,8 @@ sepNMF <- function(dataset, comp_num, perturbation = 0.0001){
     sample_name = sampleNameExtractor(dataset)
 
     dataset = frameToMatrix(dataset)
+    dataset = weightData(dataset, weighting)
+
     N = length(dataset)
 
     list_component = list()

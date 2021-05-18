@@ -8,6 +8,7 @@
 #'
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #' @param threshold The threshold used to cutoff the eigenvalues
 #' @param backup A backup variable, which permits the overselection of the components by BEMA
 #' @param total_number Total number of components will be extracted, if default value is set to NA, then BEMA will be used.
@@ -30,7 +31,7 @@
 #'
 #' @export
 
-twoStageiLCA.rank <- function(dataset, group, total_number = NULL, threshold, backup = 0){
+twoStageiLCA.rank <- function(dataset, group, weighting = NULL, total_number = NULL, threshold, backup = 0){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)

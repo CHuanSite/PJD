@@ -5,6 +5,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #' @param backup A positive scalar to determine how many PCs to over select
 #'
 #' @importFrom RSpectra svds
@@ -25,7 +26,7 @@
 #' @export
 
 
-twoStageLCA <- function(dataset, group, comp_num, backup = 0){
+twoStageLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -71,6 +72,8 @@ twoStageLCA <- function(dataset, group, comp_num, backup = 0){
     for(i in 1 : N){
         data_comp_total[[i]] = svds(dataset[[i]], data_comp_num[i])$u
     }
+
+    data_comp_total = weightData(data_comp_total, weighting)
 
     ## compute the components sequentially
     for(i in 1 : K){

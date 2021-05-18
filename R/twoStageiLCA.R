@@ -5,6 +5,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #' @param backup A positive scalar to determine how many ICs to over select
 #'
 #' @importFrom RSpectra svds
@@ -25,7 +26,7 @@
 #'
 #' @export
 
-twoStageiLCA <- function(dataset, group, comp_num, backup = 0){
+twoStageiLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0){
     twoStageLCA_out = twoStageLCA(dataset, group, comp_num)
 
     ## Obtain names for dataset, gene and samples

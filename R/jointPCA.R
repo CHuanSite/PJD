@@ -5,6 +5,7 @@
 #' @param dataset A list of dataset to be analyzed
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #' @param max_ite The maximum number of iterations for the jointPCA algorithms to run, default value is set to 100
 #' @param max_err The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.001
 #'
@@ -25,7 +26,7 @@
 #'
 #' @export
 
-jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
+jointPCA <- function(dataset, group, comp_num, weighting = NULL, max_ite = 100, max_err = 0.0001){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -37,6 +38,8 @@ jointPCA <- function(dataset, group, comp_num, max_ite = 100, max_err = 0.0001){
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
     dataset = balanceData(dataset)
+    dataset = weightData(dataset, weighting)
+
 
     ## Parameters to be initialized
     N = length(dataset)

@@ -4,6 +4,7 @@
 #'
 #' @param dataset A dataframe/matrix to be decomposed
 #' @param comp_num Number of ICs to be extracted
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #'
 #' @importFrom fastICA fastICA
 #'
@@ -18,7 +19,7 @@
 #'
 #' @export
 
-sepICA <- function(dataset, comp_num){
+sepICA <- function(dataset, comp_num, weighting = NULL){
     sepPCA_res = sepPCA(dataset, comp_num)
 
     ## Obtain names for dataset, gene and samples
@@ -28,6 +29,7 @@ sepICA <- function(dataset, comp_num){
 
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
+    dataset = weightData(dataset, weighting)
 
     N = length(dataset)
 

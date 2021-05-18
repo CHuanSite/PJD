@@ -4,7 +4,7 @@
 #'
 #' @param dataset A dataframe/matrix to be decomposed
 #' @param comp_num Number of PCs to be extracted
-#'
+#' @param weighting Weighting of each dataset, initialized to be NULL
 #'
 #' @importFrom RSpectra svds
 #'
@@ -19,7 +19,7 @@
 #'
 #' @export
 
-sepPCA <- function(dataset, comp_num){
+sepPCA <- function(dataset, comp_num, weighting = NULL){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -29,6 +29,7 @@ sepPCA <- function(dataset, comp_num){
     ## Prepare dataset
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
+    dataset = weightData(dataset, weighting)
 
     N = length(dataset)
 
