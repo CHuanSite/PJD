@@ -4,12 +4,14 @@
 \alias{sepNMF}
 \title{Single Data Set Decomposition with Nonnegative Matrix Factorization}
 \usage{
-sepNMF(dataset, comp_num, perturbation = 1e-04)
+sepNMF(dataset, comp_num, weighting = NULL, perturbation = 1e-04)
 }
 \arguments{
 \item{dataset}{A dataframe/matrix to be decomposed}
 
 \item{comp_num}{Number of NMFs to be extracted}
+
+\item{weighting}{Weighting of each dataset, initialized to be NULL}
 
 \item{perturbation}{A small perturbation to ensure nmf works well}
 }

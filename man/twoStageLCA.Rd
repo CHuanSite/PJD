@@ -4,7 +4,7 @@
 \alias{twoStageLCA}
 \title{Two-staged Linked Component Analysis}
 \usage{
-twoStageLCA(dataset, group, comp_num, backup = 0)
+twoStageLCA(dataset, group, comp_num, weighting = NULL, backup = 0)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
@@ -12,6 +12,8 @@ twoStageLCA(dataset, group, comp_num, backup = 0)
 \item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
 
 \item{comp_num}{A vector indicates the dimension of each compoent}
+
+\item{weighting}{Weighting of each dataset, initialized to be NULL}
 
 \item{backup}{A positive scalar to determine how many PCs to over select}
 }

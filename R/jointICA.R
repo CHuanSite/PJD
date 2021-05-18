@@ -27,7 +27,7 @@
 #' @export
 
 jointICA <- function(dataset, group, comp_num, weighting = NULL, max_ite = 100, max_err = 0.0001){
-    jointPCA_res = jointPCA(dataset, group, comp_num, max_ite, max_err)
+    jointPCA_res = jointPCA(dataset, group, comp_num, weighting, max_ite, max_err)
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)

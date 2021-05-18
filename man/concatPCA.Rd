@@ -4,7 +4,7 @@
 \alias{concatPCA}
 \title{Concatenated Decomposition with Principal Component Analysis}
 \usage{
-concatPCA(dataset, group, comp_num)
+concatPCA(dataset, group, comp_num, weighting = NULL)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
@@ -12,6 +12,8 @@ concatPCA(dataset, group, comp_num)
 \item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
 
 \item{comp_num}{A vector indicates the dimension of each compoent}
+
+\item{weighting}{Weighting of each dataset, initialized to be NULL}
 }
 \value{
 A list contains the component and the score of each dataset on every component after concatPCA algorithm

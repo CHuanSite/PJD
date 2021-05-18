@@ -27,7 +27,7 @@
 #' @export
 
 twoStageiLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0){
-    twoStageLCA_out = twoStageLCA(dataset, group, comp_num)
+    twoStageLCA_out = twoStageLCA(dataset, group, comp_num, weighting, backup)
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)

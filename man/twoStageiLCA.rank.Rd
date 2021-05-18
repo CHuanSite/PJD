@@ -4,12 +4,21 @@
 \alias{twoStageiLCA.rank}
 \title{Two-staged Independent LCA and automatic rank selection}
 \usage{
-twoStageiLCA.rank(dataset, group, total_number = NULL, threshold, backup = 0)
+twoStageiLCA.rank(
+  dataset,
+  group,
+  weighting = NULL,
+  total_number = NULL,
+  threshold,
+  backup = 0
+)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
 
 \item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
+
+\item{weighting}{Weighting of each dataset, initialized to be NULL}
 
 \item{total_number}{Total number of components will be extracted, if default value is set to NA, then BEMA will be used.}
 

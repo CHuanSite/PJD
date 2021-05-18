@@ -25,7 +25,7 @@
 #' @export
 
 concatICA <- function(dataset, group, comp_num, weighting = NULL){
-    concatPCA_out = concatPCA(dataset, group, comp_num)
+    concatPCA_out = concatPCA(dataset, group, comp_num, weighting)
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)

@@ -4,12 +4,14 @@
 \alias{sepICA}
 \title{Single Data Set Decomposition with Independent Component Analysis}
 \usage{
-sepICA(dataset, comp_num)
+sepICA(dataset, comp_num, weighting = NULL)
 }
 \arguments{
 \item{dataset}{A dataframe/matrix to be decomposed}
 
 \item{comp_num}{Number of ICs to be extracted}
+
+\item{weighting}{Weighting of each dataset, initialized to be NULL}
 }
 \value{
 A list of scores and component

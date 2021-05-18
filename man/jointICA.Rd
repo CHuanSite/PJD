@@ -4,7 +4,14 @@
 \alias{jointICA}
 \title{Joint decomposition with Independent Component Analysis}
 \usage{
-jointICA(dataset, group, comp_num, max_ite = 100, max_err = 1e-04)
+jointICA(
+  dataset,
+  group,
+  comp_num,
+  weighting = NULL,
+  max_ite = 100,
+  max_err = 1e-04
+)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
@@ -12,6 +19,8 @@ jointICA(dataset, group, comp_num, max_ite = 100, max_err = 1e-04)
 \item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
 
 \item{comp_num}{A vector indicates the dimension of each compoent}
+
+\item{weighting}{Weighting of each dataset, initialized to be NULL}
 
 \item{max_ite}{The maximum number of iterations for the jointPCA algorithms to run, default value is set to 100}
 

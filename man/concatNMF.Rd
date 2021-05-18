@@ -4,7 +4,7 @@
 \alias{concatNMF}
 \title{Concatenated decomposition with Nonnegative Matrix Factorization}
 \usage{
-concatNMF(dataset, group, comp_num, perturbation = 1e-04)
+concatNMF(dataset, group, comp_num, weighting = NULL, perturbation = 1e-04)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
@@ -12,6 +12,8 @@ concatNMF(dataset, group, comp_num, perturbation = 1e-04)
 \item{group}{A list of grouping of the datasets, indicating the relationship between datasets}
 
 \item{comp_num}{A vector indicates the dimension of each compoent}
+
+\item{weighting}{Weighting of each dataset, initialized to be NULL}
 
 \item{perturbation}{the perturbation of the 0 element in the analysis}
 }
