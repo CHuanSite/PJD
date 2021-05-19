@@ -85,6 +85,7 @@ jointICA <- function(dataset, group, comp_num, weighting = NULL, max_ite = 100, 
     list_score = sampleNameAssign(list_score, sample_name)
     list_score = filterNAValue(list_score, dataset, group)
     list_score = rebalanceData(list_score, group, dataset)
+    list_score = pveMultiple(dataset, group, comp_num, list_score, list_component)
 
     return(list(linked_component_list = list_component, score_list = list_score))
 }

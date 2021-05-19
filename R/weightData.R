@@ -1,4 +1,6 @@
-#' Weight data with the given weights for each function
+#' Weighting Data Set
+#'
+#' To weight each data set based on input weighting vector
 #'
 #' @param dataset A list of data sets
 #' @param weighting A vector of weighting constant for each data set

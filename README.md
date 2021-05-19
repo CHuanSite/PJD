@@ -60,6 +60,44 @@ To access the score
 concatPCA_res$score_list
 ```
 
+## Weighting data sets by different weights
+
+Sometimes it is interesting to weigh data sets differently, to incorporate user's different views on it. The PJD package also has this option.
+
+```R
+# Simulation the dataset
+dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+               matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+               matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+               matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+               
+## Specify the structure among the datasets
+group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
+comp_num = c(2,2,2,2,2,2,2,2,2)
+weighting = c(2, 1, 4, 3)
+
+## Separate PCA, ICA, NMF
+sepPCA_res = sepPCA(dataset, comp_num, weighting)
+sepICA_res = sepICA(dataset, comp_num, weighting)
+sepNMF_res = sepNMF(dataset, comp_num, weighting)
+
+## Concatenated PCA, ICA, NMF
+concatPCA_res = concatPCA(dataset, group, comp_num, weighting)
+concatICA_res = concatICA(dataset, group, comp_num, weighting)
+concatNMF_res = concatNMF(dataset, group, comp_num, weighting)
+
+## Joint PCA, ICA, NMF
+jointPCA_res = jointPCA(dataset, group, comp_num, weighting)
+jointICA_res = jointICA(dataset, group, comp_num, weighting)
+jointNMF_res = jointNMF(dataset, group, comp_num, weighting)
+
+## twoStageLCA
+twoStageLCA_res = twoStageLCA(dataset, group, comp_num, weighting)
+
+
+```
+
+
 ## Single-Cell RNAseq Example
 
 First, install the 'googleDrive' package

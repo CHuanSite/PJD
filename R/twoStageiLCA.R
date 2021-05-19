@@ -77,6 +77,7 @@ twoStageiLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0)
     list_score = scoreNameAssign(list_score, dataset_name, group_name)
     list_score = sampleNameAssign(list_score, sample_name)
     list_score = filterNAValue(list_score, dataset, group)
+    list_score = pveMultiple(dataset, group, comp_num, list_score, list_component)
 
     return(list(linked_component_list = list_component, score_list = list_score))
 }
