@@ -10,7 +10,8 @@ twoStageLCA.rank(
   weighting = NULL,
   total_number = NULL,
   threshold,
-  backup = 0
+  backup = 0,
+  plotting = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ twoStageLCA.rank(
 \item{threshold}{The threshold used to cutoff the eigenvalues}
 
 \item{backup}{A backup variable, which permits the overselection of the components by BEMA}
+
+\item{plotting}{A boolean value to determine whether to plot the scree plot or not, default to be False}
 }
 \value{
 A list contains the component and the score of each dataset on every component after seqPCA algorithm

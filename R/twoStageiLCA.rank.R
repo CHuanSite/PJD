@@ -12,6 +12,7 @@
 #' @param threshold The threshold used to cutoff the eigenvalues
 #' @param backup A backup variable, which permits the overselection of the components by BEMA
 #' @param total_number Total number of components will be extracted, if default value is set to NA, then BEMA will be used.
+#' @param plotting A boolean value to determine whether to plot the scree plot or not, default to be False
 #'
 #' @importFrom RSpectra svds
 #' @importFrom fastICA fastICA
@@ -31,7 +32,7 @@
 #'
 #' @export
 
-twoStageiLCA.rank <- function(dataset, group, weighting = NULL, total_number = NULL, threshold, backup = 0){
+twoStageiLCA.rank <- function(dataset, group, weighting = NULL, total_number = NULL, threshold, backup = 0, plotting = FALSE){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -96,7 +97,9 @@ twoStageiLCA.rank <- function(dataset, group, weighting = NULL, total_number = N
         }
 
         temp_comp_svd = svd(temp_comp)
-        plot(temp_comp_svd$d^2, xlab = "index of eigenvalue", ylab = "eigenvalue", main = paste0("Group of Dataset: ", toString(group[[i]])), type = "o")
+        if(plotting){
+            plot(temp_comp_svd$d^2, xlab = "index of eigenvalue", ylab = "eigenvalue", main = paste0("Group of Dataset: ", toString(group[[i]])), type = "o")
+        }
 
         index = which(temp_comp_svd$d^2 > threshold[i])
         if(length(index) > 0){

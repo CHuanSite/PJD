@@ -7,6 +7,7 @@
 #' @param comp_num A vector indicates the dimension of each compoent
 #' @param weighting Weighting of each dataset, initialized to be NULL
 #' @param backup A positive scalar to determine how many ICs to over select
+#' @param plotting A boolean value to determine whether to plot the scree plot or not, default to be False
 #'
 #' @importFrom RSpectra svds
 #' @importFrom fastICA fastICA
@@ -26,7 +27,7 @@
 #'
 #' @export
 
-twoStageiLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0){
+twoStageiLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0, plotting = FALSE){
     twoStageLCA_out = twoStageLCA(dataset, group, comp_num, weighting, backup)
 
     ## Obtain names for dataset, gene and samples

@@ -4,7 +4,14 @@
 \alias{twoStageLCA}
 \title{Two-staged Linked Component Analysis}
 \usage{
-twoStageLCA(dataset, group, comp_num, weighting = NULL, backup = 0)
+twoStageLCA(
+  dataset,
+  group,
+  comp_num,
+  weighting = NULL,
+  backup = 0,
+  plotting = FALSE
+)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
@@ -16,6 +23,8 @@ twoStageLCA(dataset, group, comp_num, weighting = NULL, backup = 0)
 \item{weighting}{Weighting of each dataset, initialized to be NULL}
 
 \item{backup}{A positive scalar to determine how many PCs to over select}
+
+\item{plotting}{A boolean value to determine whether to plot the scree plot or not, default to be False}
 }
 \value{
 A list contains the component and the score of each dataset on every component after 2sLCA algorithm

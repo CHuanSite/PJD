@@ -7,6 +7,7 @@
 #' @param comp_num A vector indicates the dimension of each compoent
 #' @param weighting Weighting of each dataset, initialized to be NULL
 #' @param backup A positive scalar to determine how many PCs to over select
+#' @param plotting A boolean value to determine whether to plot the scree plot or not, default to be False
 #'
 #' @importFrom RSpectra svds
 #'
@@ -26,7 +27,7 @@
 #' @export
 
 
-twoStageLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0){
+twoStageLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0, plotting = FALSE){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -90,7 +91,9 @@ twoStageLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0){
 
         temp_comp_svd = svds(temp_comp, comp_num[i])
         # print(svd(temp_comp)$d^2)
-        plot(svd(temp_comp)$d^2, xlab = "index of eigenvalue", ylab = "eigenvalue", main = paste0("Group of Dataset: ", toString(group[[i]])), type = "o")
+        if(plotting){
+            plot(svd(temp_comp)$d^2, xlab = "index of eigenvalue", ylab = "eigenvalue", main = paste0("Group of Dataset: ", toString(group[[i]])), type = "o")
+        }
         list_component[[i]] = temp_comp_svd$u
 
         # ## Orthogonalize the component
