@@ -10,6 +10,7 @@
 #'
 #' @keywords PVE, Separate analysis
 #'
+#' @examples
 #' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' comp_num = 2
 #' res_sepPCA = sepPCA(dataset, comp_num)
@@ -29,7 +30,7 @@ pveSep <- function(dataset, list_score, list_component){
         for(j in 1 : ncol(list_component[[i]])){
             u = list_component[[i]][, j] / sqrt(sum(list_component[[i]][, j] * list_component[[i]][, j]))
             pve_temp = sum((t(u) %*% dataset[[i]]) * (t(u) %*% dataset[[i]]) ) / total_variance[i]
-            rownames(list_score[[i]])[j] = rownames(names(list_score[[i]])[j], ", PVE: ", formatC(pve_temp, digits = 6, format = "f"))
+            rownames(list_score[[i]])[j] = paste0(rownames(list_score[[i]])[j], ", PVE: ", formatC(pve_temp, digits = 6, format = "f"))
         }
     }
 
@@ -53,6 +54,7 @@ pveSep <- function(dataset, list_score, list_component){
 #'
 #' @keywords PVE, Multiple analysis
 #'
+#' @examples
 #' dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
@@ -79,10 +81,10 @@ pveMultiple <- function(dataset, group, comp_num, list_score, list_component){
                 pve_temp = sum((t(u) %*% dataset[[j]]) * (t(u) %*% dataset[[j]]) ) / total_variance[j]
                 rownames(list_score[[j]][[i]])[k] = paste0(rownames(list_score[[j]][[i]])[k], ", PVE: ", formatC(pve_temp, digits = 6, format = "f"))
             }
-            pve_store[[i]][j] =  sum(diag((t(u) %*% dataset[[j]]) %*% t(t(u) %*% dataset[[j]]))) / total_variance[j]
         }
     }
 
     return(list_score)
 }
+
 
