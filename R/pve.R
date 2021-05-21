@@ -25,15 +25,12 @@ pveSep <- function(dataset, list_score, list_component){
     }
 
     ## Computer percentage of variance explained by each component for every data set
-    pve_store = c()
     for(i in 1 : length(list_component)){
-        u = svd(list_component[[i]])$u
-        pve_store = c(pve_store, sum(diag((t(u) %*% dataset[[i]]) %*% t(t(u) %*% dataset[[i]]))) / total_variance[i])
-    }
-
-    ## Assign new name for data set
-    for(i in 1 : length(list_score)){
-        names(list_score)[i] = paste0(names(list_score)[i], ", PVE: ", formatC(pve_store[i], digits = 6, format = "f"))
+        for(j in 1 : ncol(list_component[[i]])){
+            u = list_component[[i]][, j] / sqrt(sum(list_component[[i]][, j] * list_component[[i]][, j]))
+            pve_temp = sum((t(u) %*% dataset[[i]]) * (t(u) %*% dataset[[i]]) ) / total_variance[i]
+            rownames(list_score[[i]])[j] = rownames(names(list_score[[i]])[j], ", PVE: ", formatC(pve_temp, digits = 6, format = "f"))
+        }
     }
 
     return(list_score)
@@ -74,22 +71,18 @@ pveMultiple <- function(dataset, group, comp_num, list_score, list_component){
         total_variance = c(total_variance, sum(dataset[[i]] * dataset[[i]]))
     }
 
-    ## Computer percentage of variance explained by each component for every score list
-    pve_store = list()
+    ## Compute percentage of variance explained by each component for every score list
     for(i in 1 : length(group)){
-        u = svd(list_component[[i]])$u
-        pve_store[[i]] = rep(0, length(dataset))
         for(j in group[[i]]){
+            for(k in 1 : ncol(list_component[[i]])){
+                u = list_component[[i]][, k] / sqrt(sum(list_component[[i]][, k] * list_component[[i]][, k]))
+                pve_temp = sum((t(u) %*% dataset[[j]]) * (t(u) %*% dataset[[j]]) ) / total_variance[j]
+                rownames(list_score[[j]][[i]])[k] = paste0(rownames(list_score[[j]][[i]])[k], ", PVE: ", formatC(pve_temp, digits = 6, format = "f"))
+            }
             pve_store[[i]][j] =  sum(diag((t(u) %*% dataset[[j]]) %*% t(t(u) %*% dataset[[j]]))) / total_variance[j]
-        }
-    }
-
-    ## Assign new name for each element in score list
-    for(i in 1 : length(group)){
-        for(j in group[[i]]){
-            names(list_score[[j]])[i] = paste0(names(list_score[[j]])[i], ", PVE: ", formatC(pve_store[[i]][j], digits = 6, format = "f"))
         }
     }
 
     return(list_score)
 }
+
