@@ -59,7 +59,7 @@ concatICA <- function(dataset, group, comp_num, weighting = NULL){
         }
     }
 
-    ## Extract pairwise PCA from the datasets
+    ## Extract pairwise ICA from the datasets
     for(i in 1 : K){
         temp_dat = c()
         temp_sample_n = c()

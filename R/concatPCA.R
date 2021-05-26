@@ -36,6 +36,7 @@ concatPCA <- function(dataset, group, comp_num, weighting = NULL){
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
     dataset = balanceData(dataset)
+    unweighted_dataset = dataset
     dataset = weightData(dataset, weighting)
 
     ## Parameters to be initialized
