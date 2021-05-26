@@ -40,8 +40,6 @@ jointICA <- function(dataset, group, comp_num, weighting = NULL, max_ite = 100, 
     dataset = balanceData(dataset)
     dataset = weightData(dataset, weighting)
 
-
-
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)
@@ -89,8 +87,3 @@ jointICA <- function(dataset, group, comp_num, weighting = NULL, max_ite = 100, 
 
     return(list(linked_component_list = list_component, score_list = list_score))
 }
-
-
-
-
-

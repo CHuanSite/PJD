@@ -60,7 +60,6 @@ twoStageiLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0,
         }
     }
 
-
     ## Conduct ICA on the extracted Scores
     for(i in 1 : K){
         list_component[[i]] = twoStageLCA_out$linked_component_list[[i]]

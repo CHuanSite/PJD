@@ -38,8 +38,6 @@ jointNMF <- function(dataset, group, comp_num, weighting = NULL, max_ite = 100, 
     dataset = balanceData(dataset)
     dataset = weightData(dataset, weighting)
 
-
-
     ## Initialize values for the algorithm
     N = length(dataset)
     K = length(group)

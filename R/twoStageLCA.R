@@ -35,7 +35,6 @@ twoStageLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0, 
     sample_name = sampleNameExtractor(dataset)
     group_name = groupNameExtractor(group)
 
-
     dataset = frameToMatrix(dataset)
     dataset = normalizeData(dataset)
 

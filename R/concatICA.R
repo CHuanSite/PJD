@@ -38,7 +38,6 @@ concatICA <- function(dataset, group, comp_num, weighting = NULL){
     dataset = balanceData(dataset)
     dataset = weightData(dataset, weighting)
 
-
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)

@@ -40,7 +40,6 @@ jointPCA <- function(dataset, group, comp_num, weighting = NULL, max_ite = 100, 
     dataset = balanceData(dataset)
     dataset = weightData(dataset, weighting)
 
-
     ## Parameters to be initialized
     N = length(dataset)
     K = length(group)
@@ -102,6 +101,7 @@ jointPCA <- function(dataset, group, comp_num, weighting = NULL, max_ite = 100, 
                 }
             }
         }
+
         loss_current = sum((combine_data - linked_component %*% matrix_score)^2)
         if(abs(loss[length(loss)] - loss_current) < max_err){
             list_component = compNameAssign(list_component, group_name)
