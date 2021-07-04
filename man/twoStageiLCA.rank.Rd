@@ -11,7 +11,9 @@ twoStageiLCA.rank(
   total_number = NULL,
   threshold,
   backup = 0,
-  plotting = FALSE
+  plotting = FALSE,
+  proj_dataset = NULL,
+  proj_group = NULL
 )
 }
 \arguments{
@@ -28,6 +30,10 @@ twoStageiLCA.rank(
 \item{backup}{A backup variable, which permits the overselection of the components by BEMA}
 
 \item{plotting}{A boolean value to determine whether to plot the scree plot or not, default to be False}
+
+\item{proj_dataset}{The datasets to be projected on}
+
+\item{proj_group}{The grouping of projected data sets}
 }
 \value{
 A list contains the component and the score of each dataset on every component after twoStageiLCA.rank algorithm

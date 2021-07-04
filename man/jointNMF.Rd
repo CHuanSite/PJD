@@ -10,7 +10,9 @@ jointNMF(
   comp_num,
   weighting = NULL,
   max_ite = 100,
-  max_err = 1e-04
+  max_err = 1e-04,
+  proj_dataset = NULL,
+  proj_group = NULL
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ jointNMF(
 \item{max_ite}{The maximum number of iterations for the jointNMF algorithms to run, default value is set to 100}
 
 \item{max_err}{The maximum error of loss between two iterations, or the program will terminate and return, default value is set to be 0.0001}
+
+\item{proj_dataset}{The datasets to be projected on}
+
+\item{proj_group}{The grouping of projected data sets}
 }
 \value{
 A list contains the component and the score of each dataset on every component after jointNMF algorithm
@@ -40,7 +46,9 @@ matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 comp_num = c(2,2,2,2,2,2,2,2,2)
-res_jointNMF = jointNMF(dataset, group, comp_num)
+proj_dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+proj_group = list(c(TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE))
+res_jointNMF = jointNMF(dataset, group, comp_num, proj_dataset = proj_dataset, proj_group = proj_group)
 
 }
 \keyword{NMF}

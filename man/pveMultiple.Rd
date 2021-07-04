@@ -23,37 +23,17 @@ The list of scores
 \description{
 Compute the PVE (Percentage of Variance Explained) for multiple data sets on multiple components
 }
-\keyword{1,}
-\keyword{100,}
-\keyword{2),}
-\keyword{50))}
-\keyword{50),}
-\keyword{=}
+\examples{
+dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
+comp_num = c(2,2,2,2,2,2,2,2,2)
+res_concatPCA = concatPCA(dataset, group, comp_num)
+pveMultiple(dataset, group, comp_num, res_concatPCA$score_list, res_concatPCA$linked_component_list)
+
+}
 \keyword{Multiple}
 \keyword{PVE,}
 \keyword{analysis}
-\keyword{c(1),}
-\keyword{c(1,2),}
-\keyword{c(1,3),}
-\keyword{c(2),}
-\keyword{c(2,2,2,2,2,2,2,2,2)}
-\keyword{c(2,4),}
-\keyword{c(3),}
-\keyword{c(3,4),}
-\keyword{c(4))}
-\keyword{comp_num}
-\keyword{comp_num)}
-\keyword{comp_num,}
-\keyword{concatPCA(dataset,}
-\keyword{dataset}
-\keyword{group}
-\keyword{group,}
-\keyword{list(c(1,2,3,4),}
-\keyword{list(matrix(runif(5000,}
-\keyword{matrix(runif(5000,}
-\keyword{ncol}
-\keyword{nrow}
-\keyword{pveMultiple(dataset,}
-\keyword{res_concatPCA}
-\keyword{res_concatPCA$linked_component_list)}
-\keyword{res_concatPCA$score_list,}

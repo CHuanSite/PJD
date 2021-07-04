@@ -4,7 +4,14 @@
 \alias{concatPCA}
 \title{Concatenated Decomposition with Principal Component Analysis}
 \usage{
-concatPCA(dataset, group, comp_num, weighting = NULL)
+concatPCA(
+  dataset,
+  group,
+  comp_num,
+  weighting = NULL,
+  proj_dataset = NULL,
+  proj_group = NULL
+)
 }
 \arguments{
 \item{dataset}{A list of dataset to be analyzed}
@@ -14,6 +21,10 @@ concatPCA(dataset, group, comp_num, weighting = NULL)
 \item{comp_num}{A vector indicates the dimension of each compoent}
 
 \item{weighting}{Weighting of each dataset, initialized to be NULL}
+
+\item{proj_dataset}{The datasets to be projected on}
+
+\item{proj_group}{The grouping of projected data sets}
 }
 \value{
 A list contains the component and the score of each dataset on every component after concatPCA algorithm
@@ -28,7 +39,9 @@ matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 comp_num = c(2,2,2,2,2,2,2,2,2)
-res_concatPCA = concatPCA(dataset, group, comp_num)
+proj_dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+proj_group = list(c(TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE))
+res_concatPCA = concatPCA(dataset, group, comp_num, weighting = NULL, proj_dataset = proj_dataset, proj_group = proj_group)
 
 }
 \keyword{PCA}

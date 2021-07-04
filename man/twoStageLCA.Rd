@@ -10,7 +10,9 @@ twoStageLCA(
   comp_num,
   weighting = NULL,
   backup = 0,
-  plotting = FALSE
+  plotting = FALSE,
+  proj_dataset = NULL,
+  proj_group = NULL
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ twoStageLCA(
 \item{backup}{A positive scalar to determine how many PCs to over select}
 
 \item{plotting}{A boolean value to determine whether to plot the scree plot or not, default to be False}
+
+\item{proj_dataset}{The datasets to be projected on}
+
+\item{proj_group}{The grouping of projected data sets}
 }
 \value{
 A list contains the component and the score of each dataset on every component after 2sLCA algorithm
@@ -39,7 +45,9 @@ matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 group = list(c(1, 2, 3, 4), c(1, 2), c(3, 4), c(1, 3), c(2, 4), c(1), c(2), c(3), c(4))
 comp_num = c(2, 2, 2, 2, 2, 2, 2, 2, 2)
-res_twoStageLCA = twoStageLCA(dataset, group, comp_num)
+proj_dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+proj_group = list(c(TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE))
+res_twoStageLCA = twoStageLCA(dataset, group, comp_num, proj_dataset = proj_dataset, proj_group = proj_group)
 
 }
 \keyword{LCA}

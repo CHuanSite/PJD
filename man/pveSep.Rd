@@ -19,23 +19,13 @@ The list of scores
 \description{
 Compute the PVE (percentage of variance explained) for each data set
 }
-\keyword{1,}
-\keyword{100,}
-\keyword{2}
-\keyword{2),}
-\keyword{50))}
-\keyword{=}
+\examples{
+dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+comp_num = 2
+res_sepPCA = sepPCA(dataset, comp_num)
+pveSep(dataset, res_sepPCA$score_list, res_sepPCA$linked_component_list)
+
+}
 \keyword{PVE,}
 \keyword{Separate}
 \keyword{analysis}
-\keyword{comp_num}
-\keyword{comp_num)}
-\keyword{dataset}
-\keyword{list(matrix(runif(5000,}
-\keyword{ncol}
-\keyword{nrow}
-\keyword{pveSep(dataset,}
-\keyword{res_sepPCA}
-\keyword{res_sepPCA$linked_component_list)}
-\keyword{res_sepPCA$score_list,}
-\keyword{sepPCA(dataset,}

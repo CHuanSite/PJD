@@ -11,7 +11,7 @@ library(devtools)
 install_github("CHuanSite/PJD")
 ```
 
-This package implements four categories of algorithms to decompose multiple datasets, (1) Separately, (2) Concatenately, (3) Jointly, (4) Two Stage. 
+This package implements four categories of algorithms to decompose multiple datasets, (1) Separately, (2) Concatenately, (3) Jointly, (4) Two Stage Sequentially. 
 
 For the first three categories, there are three available algorithms: Principal Component Analysis (PCA), Independent Component Analysis (ICA) and Nonnegative Matrix Factorization (NMF). For each method, the algorithm takes three arguments, `dataset`, `group` and `comp_num`, specifying which datasets to be used, what is the structure among the datasets and what's the dimension for each component.
 

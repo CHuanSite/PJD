@@ -6,6 +6,8 @@
 #' @param group A list of grouping of the datasets, indicating the relationship between datasets
 #' @param comp_num A vector indicates the dimension of each compoent
 #' @param weighting Weighting of each dataset, initialized to be NULL
+#' @param proj_dataset The datasets to be projected on
+#' @param proj_group The grouping of projected data sets
 #'
 #' @importFrom RSpectra svds
 #'
@@ -20,11 +22,13 @@
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
 #' group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
 #' comp_num = c(2,2,2,2,2,2,2,2,2)
-#' res_concatPCA = concatPCA(dataset, group, comp_num)
+#' proj_dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+#' proj_group = list(c(TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE))
+#' res_concatPCA = concatPCA(dataset, group, comp_num, weighting = NULL, proj_dataset = proj_dataset, proj_group = proj_group)
 #'
 #' @export
 
-concatPCA <- function(dataset, group, comp_num, weighting = NULL){
+concatPCA <- function(dataset, group, comp_num, weighting = NULL, proj_dataset = NULL, proj_group = NULL){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -83,5 +87,31 @@ concatPCA <- function(dataset, group, comp_num, weighting = NULL){
     list_score = rebalanceData(list_score, group, dataset)
     list_score = pveMultiple(dataset, group, comp_num, list_score, list_component)
 
-    return(list(linked_component_list = list_component, score_list = list_score))
+    ## Project score
+    proj_list_score = list()
+    if(!is.null(proj_dataset)){
+        proj_sample_name = sampleNameExtractor(proj_dataset)
+        proj_dataset_name = datasetNameExtractor(proj_dataset)
+
+        proj_dataset = frameToMatrix(proj_dataset)
+        proj_dataset = normalizeData(proj_dataset)
+        proj_dataset = balanceData(proj_dataset)
+
+        for(i in 1 : length(proj_dataset)){
+            proj_list_score[[i]] = list()
+            for(j in 1 : length(proj_group[[i]])){
+                if(proj_group[[i]][j]){
+                    proj_list_score[[i]][[j]] =  t(list_component[[j]]) %*% proj_dataset[[i]]
+                }else{
+                    proj_list_score[[i]][[j]] = NA
+                }
+            }
+        }
+
+
+        proj_list_score = scoreNameAssign(proj_list_score, proj_dataset_name, group_name)
+        proj_list_score = sampleNameAssign(proj_list_score, proj_sample_name)
+    }
+
+    return(list(linked_component_list = list_component, score_list = list_score, proj_score_list = proj_list_score))
 }

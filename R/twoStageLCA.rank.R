@@ -9,6 +9,8 @@
 #' @param backup A backup variable, which permits the overselection of the components by BEMA
 #' @param total_number Total number of components will be extracted, if default value is set to NA, then BEMA will be used.
 #' @param plotting A boolean value to determine whether to plot the scree plot or not, default to be False
+#' @param proj_dataset The datasets to be projected on
+#' @param proj_group The grouping of projected data sets
 #'
 #' @importFrom RSpectra svds
 #'
@@ -27,7 +29,7 @@
 #'
 #' @export
 
-twoStageLCA.rank <- function(dataset, group, weighting = NULL, total_number = NULL, threshold, backup = 0, plotting = FALSE){
+twoStageLCA.rank <- function(dataset, group, weighting = NULL, total_number = NULL, threshold, backup = 0, plotting = FALSE, proj_dataset = NULL, proj_group = NULL){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -121,5 +123,32 @@ twoStageLCA.rank <- function(dataset, group, weighting = NULL, total_number = NU
     list_score = sampleNameAssign(list_score, sample_name)
     list_score = filterNAValue(list_score, dataset, group)
 
-    return(list(linked_component_list = list_component, score_list = list_score))
+    ## Project score
+    proj_list_score = list()
+    if(!is.null(proj_dataset)){
+        proj_sample_name = sampleNameExtractor(proj_dataset)
+        proj_dataset_name = datasetNameExtractor(proj_dataset)
+
+        proj_dataset = frameToMatrix(proj_dataset)
+        proj_dataset = normalizeData(proj_dataset)
+        proj_dataset = balanceData(proj_dataset)
+
+        for(i in 1 : length(proj_dataset)){
+            proj_list_score[[i]] = list()
+            for(j in 1 : length(proj_group[[i]])){
+                if(proj_group[[i]][j]){
+                    proj_list_score[[i]][[j]] =  t(list_component[[j]]) %*% proj_dataset[[i]]
+                }else{
+                    proj_list_score[[i]][[j]] = NA
+                }
+            }
+        }
+
+
+        proj_list_score = scoreNameAssign(proj_list_score, proj_dataset_name, group_name)
+        proj_list_score = sampleNameAssign(proj_list_score, proj_sample_name)
+    }
+
+
+    return(list(linked_component_list = list_component, score_list = list_score, proj_score_list = proj_list_score))
 }

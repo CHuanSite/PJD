@@ -55,7 +55,9 @@ scoreNameAssign <- function(score_list, dataset_name, group_name){
         names(score_list)[i] = dataset_name[i]
         for(j in 1 : length(score_list[[i]])){
             names(score_list[[i]])[j] = group_name[j]
-            rownames(score_list[[i]][[j]]) = sapply(1 : nrow(score_list[[i]][[j]]), FUN = function(x){paste0(group_name[j], "_", "subcomp.", x)} )
+            if(!any(is.na(score_list[[i]][[j]]))){
+                rownames(score_list[[i]][[j]]) = sapply(1 : nrow(score_list[[i]][[j]]), FUN = function(x){paste0(group_name[j], "_", "subcomp.", x)} )
+            }
         }
     }
     return(score_list)
@@ -193,7 +195,9 @@ sampleNameAssignSep <- function(score_list, sample_name){
 sampleNameAssign <- function(score_list, sample_name){
     for(i in 1 : length(score_list)){
         for(j in 1 : length(score_list[[i]])){
-            colnames(score_list[[i]][[j]]) = sample_name[[i]]
+            if(!any(is.na(score_list[[i]][[j]]))){
+                colnames(score_list[[i]][[j]]) = sample_name[[i]]
+            }
         }
     }
     return(score_list)
