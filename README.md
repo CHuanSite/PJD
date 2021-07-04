@@ -97,6 +97,26 @@ twoStageLCA_res = twoStageLCA(dataset, group, comp_num, weighting)
 
 ```
 
+## Projecting new data sets to extracted components
+```R
+# Simulation the dataset
+dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+               matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+               matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
+               matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+               
+## Specify the structure among the datasets
+group = list(c(1,2,3,4), c(1,2), c(3,4), c(1,3), c(2,4), c(1), c(2), c(3), c(4))
+comp_num = c(2,2,2,2,2,2,2,2,2)
+
+## Projected new data sets
+proj_dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50))
+proj_group = list(c(TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE))
+
+## concatenate PCA with projection functionality on
+res_concatPCA = concatPCA(dataset, group, comp_num, weighting = NULL, proj_dataset = proj_dataset, proj_group = proj_group)
+
+```
 
 ## Single-Cell RNAseq Example
 
