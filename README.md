@@ -98,6 +98,7 @@ twoStageLCA_res = twoStageLCA(dataset, group, comp_num, weighting)
 ```
 
 ## Projecting new data sets to extracted components
+
 ```R
 # Simulation the dataset
 dataset = list(matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
@@ -115,7 +116,6 @@ proj_group = list(c(TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE))
 
 ## concatenate PCA with projection functionality on
 res_concatPCA = concatPCA(dataset, group, comp_num, weighting = NULL, proj_dataset = proj_dataset, proj_group = proj_group)
-
 ```
 
 ## Single-Cell RNAseq Example
