@@ -11,13 +11,19 @@
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 #' matrix(runif(5000, 1, 2), nrow = 100, ncol = 50)
 #' )
-#' normalizeData(dataset)
+#' normalizeData(dataset, TRUE)
 #'
 #' @export
 
-normalizeData <- function(dataset){
-    dataset = lapply(dataset, FUN = function(x){
-        scale(t(scale(t(x), scale = FALSE)))
-    })
+normalizeData <- function(dataset, enable_normalization){
+    if(enable_normalization){
+        dataset = lapply(dataset, FUN = function(x){
+            scale(t(scale(t(x), scale = FALSE)))
+        })
+    }else{
+        dataset = lapply(dataset, FUN = function(x){
+            t(scale(t(x), scale = FALSE))
+        })
+    }
     return(dataset)
 }

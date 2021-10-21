@@ -31,7 +31,7 @@
 #' @export
 
 
-twoStageLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0, plotting = FALSE, proj_dataset = NULL, proj_group = NULL){
+twoStageLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0, plotting = FALSE, proj_dataset = NULL, proj_group = NULL, enable_normalization = TRUE){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -40,7 +40,9 @@ twoStageLCA <- function(dataset, group, comp_num, weighting = NULL, backup = 0, 
     group_name = groupNameExtractor(group)
 
     dataset = frameToMatrix(dataset)
-    dataset = normalizeData(dataset)
+
+    dataset = normalizeData(dataset, enable_normalization)
+
 
     ## Parameters to be initialized
     N = length(dataset)
