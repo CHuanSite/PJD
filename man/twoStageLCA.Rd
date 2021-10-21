@@ -32,6 +32,8 @@ twoStageLCA(
 \item{proj_dataset}{The datasets to be projected on}
 
 \item{proj_group}{The grouping of projected data sets}
+
+\item{enable_normalization}{An argument to decide whether to use normalizaiton or not,  default is TRUE}
 }
 \value{
 A list contains the component and the score of each dataset on every component after 2sLCA algorithm

@@ -11,6 +11,7 @@
 #' @param plotting A boolean value to determine whether to plot the scree plot or not, default to be False
 #' @param proj_dataset The datasets to be projected on
 #' @param proj_group The grouping of projected data sets
+#' @param enable_normalization An argument to decide whether to use normalizaiton or not,  default is TRUE
 #'
 #' @importFrom RSpectra svds
 #'
@@ -29,7 +30,7 @@
 #'
 #' @export
 
-twoStageLCA.rank <- function(dataset, group, weighting = NULL, total_number = NULL, threshold, backup = 0, plotting = FALSE, proj_dataset = NULL, proj_group = NULL){
+twoStageLCA.rank <- function(dataset, group, weighting = NULL, total_number = NULL, threshold, backup = 0, plotting = FALSE, proj_dataset = NULL, proj_group = NULL, enable_normalization = TRUE){
 
     ## Obtain names for dataset, gene and samples
     dataset_name = datasetNameExtractor(dataset)
@@ -38,7 +39,7 @@ twoStageLCA.rank <- function(dataset, group, weighting = NULL, total_number = NU
     group_name = groupNameExtractor(group)
 
     dataset = frameToMatrix(dataset)
-    dataset = normalizeData(dataset)
+    dataset = normalizeData(dataset, enable_normalization)
 
     ## Parameters to be initialized
     N = length(dataset)

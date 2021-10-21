@@ -13,7 +13,8 @@ twoStageLCA.rank(
   backup = 0,
   plotting = FALSE,
   proj_dataset = NULL,
-  proj_group = NULL
+  proj_group = NULL,
+  enable_normalization = TRUE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ twoStageLCA.rank(
 \item{proj_dataset}{The datasets to be projected on}
 
 \item{proj_group}{The grouping of projected data sets}
+
+\item{enable_normalization}{An argument to decide whether to use normalizaiton or not,  default is TRUE}
 }
 \value{
 A list contains the component and the score of each dataset on every component after seqPCA algorithm

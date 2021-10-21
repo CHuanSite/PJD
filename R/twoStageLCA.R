@@ -10,6 +10,7 @@
 #' @param plotting A boolean value to determine whether to plot the scree plot or not, default to be False
 #' @param proj_dataset The datasets to be projected on
 #' @param proj_group The grouping of projected data sets
+#' @param enable_normalization An argument to decide whether to use normalizaiton or not,  default is TRUE
 #'
 #' @importFrom RSpectra svds
 #'
