@@ -3,6 +3,7 @@
 #' Normalize data to have mean zero and std 1
 #'
 #' @param dataset The input list of data sets matrix
+#' @param enable_normalization An argument to decide whether to use normalizaiton or not,  default is TRUE
 #'
 #' @keywords normalize
 #'
@@ -15,7 +16,7 @@
 #'
 #' @export
 
-normalizeData <- function(dataset, enable_normalization){
+normalizeData <- function(dataset, enable_normalization = TRUE){
     if(enable_normalization){
         dataset = lapply(dataset, FUN = function(x){
             scale(t(scale(t(x), scale = FALSE)))
