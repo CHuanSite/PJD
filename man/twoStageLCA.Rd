@@ -12,7 +12,8 @@ twoStageLCA(
   backup = 0,
   plotting = FALSE,
   proj_dataset = NULL,
-  proj_group = NULL
+  proj_group = NULL,
+  enable_normalization = TRUE
 )
 }
 \arguments{

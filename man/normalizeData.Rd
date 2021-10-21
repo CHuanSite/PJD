@@ -4,10 +4,12 @@
 \alias{normalizeData}
 \title{Data Normalization}
 \usage{
-normalizeData(dataset)
+normalizeData(dataset, enable_normalization = TRUE)
 }
 \arguments{
 \item{dataset}{The input list of data sets matrix}
+
+\item{enable_normalization}{An argument to decide whether to use normalizaiton or not,  default is TRUE}
 }
 \description{
 Normalize data to have mean zero and std 1
@@ -17,7 +19,7 @@ dataset = list(
 matrix(runif(5000, 1, 2), nrow = 100, ncol = 50),
 matrix(runif(5000, 1, 2), nrow = 100, ncol = 50)
 )
-normalizeData(dataset)
+normalizeData(dataset, TRUE)
 
 }
 \keyword{normalize}
